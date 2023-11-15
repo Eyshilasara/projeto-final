@@ -121,7 +121,31 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
         </sub>
       </a>
     </td>
-   
+    <td align="center">
+      <a href="https://github.com/JoaoDiadorim">
+        <img src="https://avatars.githubusercontent.com/u/143196490" width="100px;" alt="JoaoDiadorim"/><br>
+        <sub>
+          <b>JoaoDiadorim</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/lehsc">
+        <img src="https://avatars.githubusercontent.com/u/150151818" width="100px;" alt="lehsc"/><br>
+        <sub>
+          <b>lehsc</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/angus-22">
+        <img src="https://avatars.githubusercontent.com/u/117396577" width="100px;" alt="angus-22"/><br>
+        <sub>
+          <b>angus-22</b>
+        </sub>
+      </a>
+    </td>
     
+   
   </tr>
 </table>

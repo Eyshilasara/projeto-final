@@ -4,12 +4,20 @@
 #include "midia.hpp"
 
 class FitaDeVideo : public Midia {
-private:
+protected:
     bool rebobinado;
 
 public:
-    FitaDeVideo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, bool _rebobinado);
+    FitaDeVideo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, std::string& _tipo, bool _rebobinado);
+    
     void exibirInfo() const;
+
+    void setRebobinado(bool rebobinado) {
+        this->rebobinado = rebobinado;
+    }
+    bool getRebobinado() const {
+        return rebobinado;
+    }
 };
 
 #endif 

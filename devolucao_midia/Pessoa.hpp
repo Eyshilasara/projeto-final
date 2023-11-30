@@ -10,7 +10,6 @@ class Pessoa{
   
   public:
     Pessoa(std::string nome, long long cpf);
-    bool isValidCPF(std::string cpf);
 
 };
 

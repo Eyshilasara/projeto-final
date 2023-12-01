@@ -15,7 +15,20 @@ protected:
 public:
     Midia(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal);
 
-    void exibirInfo() const;
-};
+   /* const std::string& getTitulo() const;
+    void setTitulo(const std::string& _titulo);
+
+    int getCodigo() const;
+    void setCodigo(int _codigo);
+
+    const std::string& getGenero() const;
+    void setGenero(const std::string& _genero);
+
+    int getQuantidadeTotal() const;
+    void setQuantidadeTotal(int _quantidadeTotal);
+
+    int getQuantidadeDisponivel() const;
+    void setQuantidadeDisponivel(int _quantidadeDisponivel);*/
+};  
 
 #endif 

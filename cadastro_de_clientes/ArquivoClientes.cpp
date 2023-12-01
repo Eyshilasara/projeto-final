@@ -7,7 +7,7 @@ void BancoClientes::cadastrarCliente(string cpf, string nome){
     map<string , Cliente*> m;
     fstream file("Clientes.txt", std::ios::in | std::ios::out| std::ios::app);
     if(this->Pesquisar(cpf))
-        cout<<"ERRO: CPF repetido" << endl;
+        throw invalid_argument("CPF repetido.");
     else{
         Cliente *cliente = new Cliente(nome, cpf);
         this->banco.insert(pair<string ,Cliente*>(cpf, cliente));
@@ -51,7 +51,7 @@ void BancoClientes::removerCliente(string cpf){
 
     }
     else
-        cout << "ERRO: Cliente nao encontrado" << endl;
+        throw invalid_argument("Cliente não encontrado");
 
 }
 

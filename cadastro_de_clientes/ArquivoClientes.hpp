@@ -13,10 +13,10 @@ using namespace std;
 
 class BancoClientes{
     public:
-    fstream file;
-    map<string ,Cliente*> banco;
-
-    time_t now = time(0);
+    fstream file;                  // arquivo com as informações do clientes, é mantido apos o fim do main
+    map<string ,Cliente*> banco;   // mapa com os clientes e os nomes, é perdido
+  
+    time_t now = time(0);          // Define a data que começou uma nova execução
     char* dt = ctime(&now);
 
 

@@ -15,11 +15,23 @@ int main(){
         if(entrada == "CC"){
             cin >> cpf;
             cin >> nome;
-            banco.cadastrarCliente(cpf, nome);
+            try{
+                banco.cadastrarCliente(cpf, nome);
+            }
+            catch(invalid_argument &e){
+                cout << "ERRO: " << e.what() << endl;
+
+            }
         }
         else if(entrada == "RC"){
             cin >> cpf;
-            banco.removerCliente(cpf);
+            try{
+                banco.removerCliente(cpf);
+            }
+            catch(invalid_argument &e){
+                cout << "ERRO: " << e.what() << endl;
+
+            }
         }
         else if(entrada =="P"){
             bool teste = banco.Pesquisar("307");

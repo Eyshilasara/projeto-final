@@ -1,6 +1,5 @@
 #include <iostream>
 #include "/home/andregp/Projeto/projeto-final/cadastro_de_clientes/ArquivoClientes.hpp"
-#include "/home/andregp/Projeto/projeto-final/cadastro_de_midia/disco.hpp"
 
 int main(){
 

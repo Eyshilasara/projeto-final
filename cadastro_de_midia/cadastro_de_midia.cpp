@@ -54,14 +54,16 @@ std::string cadastrarMidia(Midia& midia) {
         dvd.setGrupo(grupo);
 
         if (grupo == "filme") {
-            std::cout << "Qual a nota de critica?" << "Use apenas numeros e com exatamente duas casas decimais!" << std::endl;
+            std::cout << "Qual a nota de critica?" << "Use apenas numeros sem casas decimais!" << std::endl;
             std::cin >> nota_de_critica;
             filme.setNotaDeCritica(nota_de_critica);
+            std::cout << "Filme cadastrado com sucesso!" << std::endl;
         } 
         else if (grupo == "jogo") {
-            std::cout << "Qual a plataforma do jogo?" << "(As opções são PS4, XBOX ou PC. Lembre-se de usar sempre letras minusculas!)" << std::endl;
+            std::cout << "Qual a plataforma do jogo?" << "(As opções são PS4, XBOX ou PC. Lembre-se de usar sempre letras maiusculas!)" << std::endl;
             std::cin >> plataforma;
             jogo.setPlataforma(plataforma);
+            std::cout << "Jogo cadastrado com sucesso!" << std::endl;
         } 
         else if (grupo == "disco"){
             std::cout << "Qual o artista do disco?" << "(Lembre-se de usar sempre letras minusculas!)" << std:: endl;
@@ -71,7 +73,7 @@ std::string cadastrarMidia(Midia& midia) {
             std::cout << "Qual o numero de musicas do disco?" << "Use apenas numeros inteiros!" << std:: endl;
             std::cin >> numeroMusicas;
             disco.setNumeroMusicas(numeroMusicas);
-
+            std::cout << "Disco cadastrado com sucesso!" << std::endl;
         }
     }
 
@@ -79,6 +81,7 @@ std::string cadastrarMidia(Midia& midia) {
         std::cout << "A fita é rebobinada? " << "(As opções são 1 para sim ou 0 para nao)" << std:: endl;
         std::cin >> rebobinado;
         fita_de_video.setRebobinado(rebobinado);
+        std::cout << "Fita de video cadastrada com sucesso!" << std::endl;
     }
 
     // ...
@@ -90,61 +93,3 @@ void removerFilme(std::vector<Midia*>& catalogo, int codigo) {
     
 }
 
-int main() {
-    std::vector<Midia*> catalogo;
-    std::vector<Cliente*> clientes;
-
-    while (true) {
-        std::string comando;
-        std::cout << "Digite um comando: ";
-        std::cin >> comando;
-
-        if (comando == "LA") {
-            // Ler Arquivo de Cadastro
-            // Implementação...
-        } else if (comando == "CF") {
-            // Cadastrar Filme
-            // Implementação...
-        } else if (comando == "RF") {
-            // Remover Filme
-            // Implementação...
-        } else if (comando == "LF") {
-            // Listar Filmes
-            char opcaoOrdenacao;
-            std::cin >> opcaoOrdenacao;
-            listarFilmes(catalogo, opcaoOrdenacao);
-        } else if (comando == "CC") {
-            // Cadastrar Cliente
-            // Implementação...
-        } else if (comando == "RC") {
-            // Remover Cliente
-            // Implementação...
-        } else if (comando == "LC") {
-            // Listar Clientes
-            char opcaoOrdenacao;
-            std::cin >> opcaoOrdenacao;
-            listarClientes(clientes, opcaoOrdenacao);
-        } else if (comando == "AL") {
-            // Aluguel Filme
-            // Implementação...
-        } else if (comando == "DV") {
-            // Devolução Filme
-            // Implementação...
-        } else if (comando == "FS") {
-            // Finalizar Sistema
-            break;
-        } else {
-            std::cerr << "Comando inválido. Tente novamente.\n";
-        }
-    }
-
-    for (const auto& midia : catalogo) {
-        delete midia;
-    }
-
-    for (const auto& cliente : clientes) {
-        delete cliente;
-    }
-
-    return 0;
-}

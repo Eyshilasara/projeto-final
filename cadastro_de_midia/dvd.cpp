@@ -6,5 +6,5 @@ DVD::DVD(const std::string& _titulo, int _codigo, const std::string& _genero, in
 
 void DVD::exibirInfo() const {
     Midia::exibirInfo();
-    std::cout << "Categoria: " << categoria << std:: endl;
+    std::cout << "Categoria: " << categoria << std:: endl; //grupo
 }

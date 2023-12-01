@@ -5,7 +5,7 @@
 
 class Jogo : public DVD {
 protected:
-    std::string plataforma;//PC ou console
+    std::string plataforma;
 
 public:
     Jogo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _tipo, const std::string& _categoria, const std::string _grupo, const std::string _plataforma);

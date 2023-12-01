@@ -10,11 +10,12 @@ void BancoClientes::cadastrarCliente(long long int cpf, string nome){
     else{
         Cliente *cliente = new Cliente(nome, cpf);
         this->banco.insert(pair<long long int,Cliente*>(cpf, cliente));
-        this->file.open ("example.txt");
-        file << cpf << " " << nome << endl;
+        if (this->file.is_open()) 
+            file << cpf <<" " << nome << endl;
+        else 
+            cerr << "Arquivo não está aberto." << endl;
         cout << "Cliente " << cpf  << " cadastrado com sucesso." << endl;
-
-
+        
     }
 }
 
@@ -30,6 +31,7 @@ void BancoClientes::removerCliente(long long int cpf){
 bool BancoClientes::Pesquisar(long long int cpf){
     if (this->banco.find(cpf) != this->banco.end())
         return true;
+    
     else
         return false;
 }

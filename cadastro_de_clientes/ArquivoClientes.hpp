@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <ctime>
+#include <sstream> 
+#include <iomanip>  // ws
 #include <fstream>
 #include "Cliente.hpp"
 
@@ -11,8 +13,8 @@ using namespace std;
 
 class BancoClientes{
     public:
-    ofstream file;
-    map<long long int,Cliente*> banco;
+    fstream file;
+    map<string ,Cliente*> banco;
 
     time_t now = time(0);
     char* dt = ctime(&now);
@@ -24,11 +26,11 @@ class BancoClientes{
             cerr << "Erro ao abrir o arquivo: " << filename << std::endl;
         }
         else{
-            this->file << " \nCADASTRO DE CLIENTES " << dt  <<endl;
+            this-> file << " \nCADASTRO DE CLIENTES " << dt  <<endl;
         }
     }
     ~BancoClientes(){
-        map<long long int,Cliente*>::iterator it;
+        map<string ,Cliente*>::iterator it;
         for (it = banco.begin(); it != banco.end(); it++) 
             delete(it->second);
         if (this->file.is_open()) {
@@ -36,9 +38,9 @@ class BancoClientes{
         }
     }
 
-    void cadastrarCliente(long long int cpf, string nome);
-    void removerCliente(long long int cpf);
-    bool Pesquisar(long long int cpf); 
+    void cadastrarCliente(string  cpf, string nome);
+    void removerCliente(string  cpf);
+    bool Pesquisar(string cpf); 
     void imprimirRelatorio(char ordem);
 };
 

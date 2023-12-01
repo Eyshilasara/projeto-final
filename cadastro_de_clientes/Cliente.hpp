@@ -10,12 +10,12 @@ using namespace std;
 class Cliente{
     private:
     string _nome;
-    long long int _cpf;
+    string _cpf;
     
     public:
-    Cliente(string nome, long long int cpf) : _nome(nome), _cpf(cpf){}  
+    Cliente(string nome, string cpf) : _nome(nome), _cpf(cpf){}  
     string get_nome();
-    long long int get_cpf();
+    string get_cpf();
 };
 
 #endif

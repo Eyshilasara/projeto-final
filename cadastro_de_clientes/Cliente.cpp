@@ -4,6 +4,6 @@ string Cliente::get_nome(){
     return this->_nome;
 }
 
-long long int Cliente::get_cpf(){
+string Cliente::get_cpf(){
     return this->_cpf;
 }

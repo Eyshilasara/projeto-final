@@ -1,13 +1,13 @@
 
-#include "BancoClientes.hpp"
+#include "ArquivoClientes.hpp"
 using namespace std;
 
 int main(){
 
-    BancoClientes banco;
+    BancoClientes banco("Clientes.txt");
     string entrada, nome;
     char ordem;
-    long long int cpf;
+    string cpf;
 
 
     do{
@@ -21,7 +21,10 @@ int main(){
             cin >> cpf;
             banco.removerCliente(cpf);
         }
-        
+        else if(entrada =="P"){
+            bool teste = banco.Pesquisar("307");
+            cout << teste;
+        }
         else if(entrada == "IR"){
             do{
             cout << "Digite C para ordenar de acordo com o CPF ou N para ordem alfabética dos nomes."<< endl;

@@ -89,7 +89,7 @@ void BancoClientes::imprimirRelatorio(char ordem){
     string line;
     fstream file("Clientes.txt",std::ios::in | std::ios::out| std::ios::app);
     
-    while(getline(file, line)){ // loop em cada linha
+    while(getline(file, line)){ 
         string key;
         string value;
         stringstream ss(line); // make a stream from the line

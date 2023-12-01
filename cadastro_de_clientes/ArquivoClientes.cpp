@@ -17,13 +17,12 @@ void BancoClientes::cadastrarCliente(string cpf, string nome){
         else 
             cerr << "Arquivo não está aberto." << endl;
         cout << "Cliente " << cpf  << " cadastrado com sucesso." << endl;
-        
     }
+    file.close();
 }
 
 void BancoClientes::removerCliente(string cpf){
-    ofstream temp("temp.txt");
-
+    ofstream temp("temp.txt"); //arquivo temporario para auxiliar
     string line;
     ifstream file("Clientes.txt");
     if(this->Pesquisar(cpf)){
@@ -31,14 +30,15 @@ void BancoClientes::removerCliente(string cpf){
             
             string key;
             string value;
-            stringstream ss(line); // make a stream from the line
-            getline(ss, key, ' '); // read key until :
-            ss >> ws;              // ignore whitespaces
-            getline(ss, value);    // read value until newline
+            stringstream ss(line); // transforma a linha em um stream
+            getline(ss, key, ' '); // le a linha ate chega em ' '
+            ss >> ws;              // ignora espaços em branco
+            getline(ss, value);    // le o restante da linha
             
             if(key!=cpf){
                 
                 temp << key << " " << value << endl;
+                
             }
         }
 
@@ -50,8 +50,12 @@ void BancoClientes::removerCliente(string cpf){
         rename("temp.txt","Clientes.txt");
 
     }
-    else
+    else{
         throw invalid_argument("Cliente não encontrado");
+        temp.close();
+        file.close();
+        rename("temp.txt","Clientes.txt");
+    }
 
 }
 
@@ -60,18 +64,18 @@ bool BancoClientes::Pesquisar(string cpf){
         string line;
         fstream file("Clientes.txt",std::ios::in | std::ios::out| std::ios::app);
         
-        while(getline(file, line)){ // loop em cada linha
+        while(getline(file, line)){ 
             string key;
             string value;
-            stringstream ss(line); // make a stream from the line
-            getline(ss, key, ' '); // read key until :
-            ss >> ws;              // ignore whitespaces
-            getline(ss, value);    // read value until newline
+            stringstream ss(line); 
+            getline(ss, key, ' '); 
+            ss >> ws;              
+            getline(ss, value);    
             
             // Store them
             configuration[key] = value;
         }
-
+        file.close();
         if(configuration[cpf] == ""){
             return false;
         }
@@ -83,6 +87,9 @@ bool BancoClientes::Pesquisar(string cpf){
 }
 
 void BancoClientes::imprimirRelatorio(char ordem){
+    if(ordem != 'C' && ordem != 'T')
+        throw invalid_argument ("Entrada Invalida.");
+
     map<long long int, string> :: iterator it;
     multimap<string,  long long int > :: iterator it2;
 
@@ -93,10 +100,10 @@ void BancoClientes::imprimirRelatorio(char ordem){
     while(getline(file, line)){ 
         string key;
         string value;
-        stringstream ss(line); // make a stream from the line
-        getline(ss, key, ' '); // read key until :
-        ss >> ws;              // ignore whitespaces
-        getline(ss, value);    // read value until newline
+        stringstream ss(line); 
+        getline(ss, key, ' '); 
+        ss >> ws;              
+        getline(ss, value);   
 
         if(key != "CADASTRO" && key != ""){
             historico[stoll(key)] = value;
@@ -117,5 +124,6 @@ void BancoClientes::imprimirRelatorio(char ordem){
             cout << it2->second << " " << it2->first << endl;
 
     }
+    file.close();
 
 }

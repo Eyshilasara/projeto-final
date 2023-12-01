@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 
-    BancoClientes banco("Clientes.txt");
+    BancoClientes banco;
     string entrada, nome;
     char ordem;
     string cpf;
@@ -32,10 +32,6 @@ int main(){
                 cout << "ERRO: " << e.what() << endl;
 
             }
-        }
-        else if(entrada =="P"){
-            bool teste = banco.Pesquisar("307");
-            cout << teste;
         }
         else if(entrada == "IR"){
             do{

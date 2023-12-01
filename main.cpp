@@ -3,7 +3,7 @@
 
 int main(){
 
-    BancoClientes banco("Clientes.txt");
+    BancoClientes banco;
     string entrada, nome;
     char ordem;
     string cpf;
@@ -14,37 +14,42 @@ int main(){
         if(entrada == "CC"){
             cin >> cpf;
             cin >> nome;
-            banco.cadastrarCliente(cpf, nome);
-        }
-        else if(entrada == "RC"){
-            cin >> cpf;
-            banco.removerCliente(cpf);
-        }
-        else if(entrada =="P"){
-            bool teste = banco.Pesquisar("307");
-            cout << teste;
-        }
-        else if(entrada == "LC"){
-            do{
-            cout << "Digite C para ordenar de acordo com o CPF ou N para ordem alfabética dos nomes."<< endl;
-            cin >> ordem;
-            if(ordem != 'C' && ordem != 'N')
-                cout << "Entrada inválida."<< endl;
-            
-            }while(ordem != 'C' && ordem != 'N');
+            try{
+                banco.cadastrarCliente(cpf, nome);
+            }
+            catch(invalid_argument &e){
+                cout << "ERRO: " << e.what() << endl;
 
+            }
+        }
+
+        else if(entrada == "RC"){
+          cin >> cpf;
+            try{
+                banco.removerCliente(cpf);
+            }
+            catch(invalid_argument &e){
+                cout << "ERRO: " << e.what() << endl;
+
+            }
+        }
+
+        else if(entrada == "LC"){
+            try{
+            cout << "Digite C para ordenar de acordo com o código ou T para ordem alfabética dos títulos."<< endl;
+            cin >> ordem;
             banco.imprimirRelatorio(ordem);
+
+            }
+            catch (invalid_argument &e){
+                cout << "ERRO: " << e.what() << endl;
+            }
+            
             
         }
 
         else if(entrada == "LF"){
-            do{
-            cout << "Digite C para ordenar de acordo com o código ou T para ordem alfabética dos títulos."<< endl;
-            cin >> ordem;
-            if(ordem != 'C' && ordem != 'T')
-                cout << "Entrada inválida."<< endl;
-            
-            }while(ordem != 'C' && ordem != 'T');
+
 
         }
 
@@ -70,10 +75,20 @@ int main(){
 
         else if(entrada == "FS")
             break;
-
         
-
-    }while(entrada != "EXIT");
+        else
+            cout << "Entre com algum dos comando:" << endl;
+            cout << "LA <Nome do Arquivo> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Ler arquivo de cadastro" << endl;
+            cout << "CF <Tipo: F|D> <quantidade> <codigo> <titulo> <categoria no caso de DVD> - -- Cadastrar filme" << endl;
+            cout << "RF <código> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Remover filme" << endl;
+            cout << "LF [C|T] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Filmes ordenados por Código ou Título:" << endl;
+            cout << "CC <CPF> <Nome> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - Cadastrar Cliente" << endl;
+            cout << "RC <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Remover Cliente" << endl;
+            cout << "LC [C|N] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Clientes ordenados por Código ou Nome:" << endl;
+            cout << "AL <CPF> <Código1> … <Código N> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -Aluguel Filme" << endl;
+            cout << "DV <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Devolução Filme" << endl;
+            cout << "FS -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Finalizar Sistema" << endl;
+    }while(cin);
 
 
 

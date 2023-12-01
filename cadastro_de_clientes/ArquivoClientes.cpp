@@ -96,8 +96,7 @@ void BancoClientes::imprimirRelatorio(char ordem){
         getline(ss, key, ' '); // read key until :
         ss >> ws;              // ignore whitespaces
         getline(ss, value);    // read value until newline
-        
-        // Store them
+
         if(key != "CADASTRO" && key != ""){
             historico[stoll(key)] = value;
         }

@@ -47,7 +47,6 @@ void BancoClientes::removerCliente(string cpf){
         cout << "Cliente " << cpf << " removido com sucesso." << endl;
         temp.close();
         file.close();
-        //remove("Clientes.txt");
         rename("temp.txt","Clientes.txt");
 
     }
@@ -55,6 +54,7 @@ void BancoClientes::removerCliente(string cpf){
         cout << "ERRO: Cliente nao encontrado" << endl;
 
 }
+
 bool BancoClientes::Pesquisar(string cpf){
         map<string, string> configuration; 
         string line;
@@ -81,6 +81,7 @@ bool BancoClientes::Pesquisar(string cpf){
         
 
 }
+
 void BancoClientes::imprimirRelatorio(char ordem){
     map<long long int, string> :: iterator it;
     multimap<string,  long long int > :: iterator it2;

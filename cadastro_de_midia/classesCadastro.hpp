@@ -1,5 +1,5 @@
-#ifndef CLASSES_CADASTRO_HPP
-#define CLASSES_CADASTRO_HPP
+#ifndef CLASSESCADASTRO_HPP
+#define CLASSESCADASTRO_HPP
 
 #include "midia.hpp"
 #include "filme.hpp"

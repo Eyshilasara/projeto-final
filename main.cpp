@@ -71,21 +71,25 @@ int main(){
             int numFilmes;
             cin >> cpf >> numFilmes;
 
-            try{
-                Cliente* cliente = banco.getCliente(cpf);
-            }
-            catch (invalid_argument &e) {
-                cout << "ERRO: " << e.what() << endl;
-            }
-
+            if(banco.Pesquisar(cpf)){
             // Cria um vetor para armazenar os códigos dos filmes
             vector<string> codigos(numFilmes);
             for (int i = 0; i < numFilmes; ++i) {
                 cin >> codigos[i];
             }
 
-            banco.getCliente(cpf)->locacaoMidia(codigos);
-            codigos.clear();
+            try{
+                banco.getCliente(cpf)->locacaoMidia(codigos);
+                codigos.clear();
+            }
+            catch (invalid_argument &e) {
+                cout << "ERRO: " << e.what() << endl;
+            }
+            }
+            else{
+                cout <<"CPF não encontrado." << endl;
+            }
+            
 
         }
 

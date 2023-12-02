@@ -72,7 +72,7 @@ int main(){
                 cin >> cpf >> numFilmes;
 
                 // Verifica se o CPF existe na lista de clientes antes de prosseguir
-                if (!bancoClientes.Pesquisar(cpf)) {
+                if (!banco.Pesquisar(cpf)) {
                     throw invalid_argument("ERRO:CPFinexistente");
                 }
 
@@ -105,7 +105,7 @@ int main(){
                 }
 
                 // Verifica se o CPF existe na lista de clientes antes de prosseguir
-                if (!bancoClientes.Pesquisar(cpf)) {
+                if (!banco.Pesquisar(cpf)) {
                     throw invalid_argument("ERRO:CPFinexistente");
                 }
 

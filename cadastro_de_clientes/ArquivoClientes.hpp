@@ -6,6 +6,7 @@
 #include <ctime>
 #include <string>
 #include <sstream> 
+#include <vector>
 #include <iomanip>  // ws
 #include <fstream>
 #include <stdexcept>

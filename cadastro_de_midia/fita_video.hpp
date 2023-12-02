@@ -1,14 +1,14 @@
-#ifndef FITA_DE_VIDEO_HPP
-#define FITA_DE_VIDEO_HPP
+#ifndef FITA_VIDEO_HPP
+#define FITA_VIDEO_HPP
 
 #include "midia.hpp"
 
-class FitaDeVideo : public Midia {
+class fitaVideo : public Midia {
 protected:
     bool rebobinado;
 
 public:
-    FitaDeVideo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, std::string& _tipo, bool _rebobinado);
+    fitaVideo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, std::string& _tipo, bool _rebobinado);
     
     void exibirInfo() const;
 

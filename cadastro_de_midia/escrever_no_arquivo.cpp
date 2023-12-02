@@ -1,8 +1,8 @@
 #include <fstream>
 #include <iostream>
 
-void escreverNoArquivo(std::ofstream& arquivo, int _codigo, const std::string& _tipo, const std::string& _titulo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _categoria, const std::string _grupo = 0, int _Nota_de_Critica = 0, const std::string& _cantorBanda = 0, int _numeroMusicas = 0, const std::string _plataforma = 0, bool _rebobinado = 0) {
-    arquivo << _codigo << "\t" << _tipo << "\t" <<  _grupo << "\t" << _titulo << "\t" << _genero << "\t" << _Nota_de_Critica << "\t" <<  _quantidadeTotal << "\t" << _quantidadeDisponivel << "\t" << _categoria << "\t" << _numeroMusicas << "\t" << _cantorBanda << "\t" << _plataforma << "\t" << _rebobinado << std::endl;
+void escreverNoArquivo(std::ofstream& arquivo, int _codigo, const std::string& _tipo, const std::string& _titulo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _categoria, const std::string _grupo = 0, int _notaCritica = 0, const std::string& _cantorBanda = 0, int _numeroMusicas = 0, const std::string _plataforma = 0, bool _rebobinado = 0) {
+    arquivo << _codigo << "\t" << _tipo << "\t" <<  _grupo << "\t" << _categoria << "\t" << _titulo << "\t" << _genero << "\t" << _notaCritica << "\t" <<  _quantidadeTotal << "\t" << _quantidadeDisponivel << "\t" <<  _numeroMusicas << "\t" << _cantorBanda << "\t" << _plataforma << "\t" << _rebobinado << std::endl;
 }
 
 

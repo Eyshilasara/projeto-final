@@ -5,6 +5,8 @@
 #include "filme.hpp"
 #include "jogo.hpp"
 #include "disco.hpp"
-#include "fita_de_video.hpp"
+#include "fita_video.hpp"
+#include "dvd.hpp"
+
 
 #endif

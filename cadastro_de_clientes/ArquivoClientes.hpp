@@ -19,16 +19,17 @@ class BancoClientes{
     fstream file;                  // arquivo com as informações do clientes, é mantido apos o fim do main
     map<string ,Cliente*> banco;   // mapa com os clientes e os nomes, é perdido
   
-    time_t now = time(0);          // Define a data que começou uma execucao
-    char* dt = ctime(&now);
-
+    
+    time_t agora = time(0);// Define a data que começou uma execucao
+    tm* ltm = localtime(&agora);
+    std::string dataCadastro = std::to_string(1900 + ltm->tm_year) + '-' + std::to_string(1 + ltm->tm_mon) + '-' + std::to_string(ltm->tm_mday);
     public:
     BancoClientes() : file("Clientes.txt", std::ios::in | std::ios::out| std::ios::app) {
         if (!file) {
             cerr << "Erro ao abrir o arquivo: Clientes.txt" << std::endl;
         }
         else{
-            this-> file << " \nCADASTRO DE CLIENTES " << dt  <<endl;
+            this-> file << " \nCADASTRO DE CLIENTES " << dataCadastro  <<endl;
         }
     }
     ~BancoClientes(){

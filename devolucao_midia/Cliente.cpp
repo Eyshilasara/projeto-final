@@ -37,9 +37,6 @@ void Cliente::locacaoMidia(vector<string> codigos) {
 void Cliente::Devolver_Midia(vector<string> codigos) {
   double valorTotal = 0, valor = 0;
   
-  string dataAtual = getCurrentDateAsString();
-  cout << dataAtual.replace(0, 1, "") << endl;
-  
   vector<vector<string>> cliente = filtro("locacoes.txt", 1, to_string(this->cpf), true);
 
   //verifica se o cliente foi encontrado em alguma locação

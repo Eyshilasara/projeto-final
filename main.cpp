@@ -7,6 +7,8 @@ int main(){
     string entrada, nome;
     char ordem;
     string cpf;
+    std::vector<std::string> codigos;
+	std::string codigo;
     
     do{
         cin >> entrada;
@@ -35,7 +37,7 @@ int main(){
 
         else if(entrada == "LC"){
             try{
-            cout << "Digite C para ordenar de acordo com o código ou T para ordem alfabética dos títulos."<< endl;
+            cout << "Digite C para ordenar de acordo com o código ou N para ordem alfabética dos títulos."<< endl;
             cin >> ordem;
             banco.imprimirRelatorio(ordem);
 
@@ -66,53 +68,42 @@ int main(){
         }
 
         else if(entrada == "AL"){
-            try {
-                string cpf;
-                int numFilmes;
-                cin >> cpf >> numFilmes;
+            int numFilmes;
+            cin >> cpf >> numFilmes;
 
-                // Verifica se o CPF existe na lista de clientes antes de prosseguir
-                if (!banco.Pesquisar(cpf)) {
-                    throw invalid_argument("ERRO:CPFinexistente");
-                }
-
-                // Cria um vetor para armazenar os códigos dos filmes
-                vector<string> codigos(numFilmes);
-                for (int i = 0; i < numFilmes; ++i) {
-                    cin >> codigos[i];
-                }
-
-                // Verificar se o codigo existe na lista de FILMES antes de prosseguir
-
-                locacaoMidia(midias, codigos);
-                
-              // Captura exceções do tipo invalid_argument que podem ser lançadas pela lógica de aluguel
-              // e imprime uma mensagem de erro correspondente usando e.what()
-            } catch (invalid_argument &e) {
+            try{
+                Cliente* cliente = banco.getCliente(cpf);
+            }
+            catch (invalid_argument &e) {
                 cout << "ERRO: " << e.what() << endl;
             }
 
-        }
-        else if(entrada == "DV"){
-            try {
-                string cpf;
-                int numFilmes;
-                cin >> cpf >> numFilmes;
-
-                vector<string> codigos(numFilmes);
-                for (int i = 0; i < numFilmes; ++i) {
-                    cin >> codigos[i];
-                }
-
-                // Verifica se o CPF existe na lista de clientes antes de prosseguir
-                if (!banco.Pesquisar(cpf)) {
-                    throw invalid_argument("ERRO:CPFinexistente");
-                }
-
-                Devolver_Midia(codigos);
-            } catch (invalid_argument &e) {
-                cout << "Erro: " << e.what() << endl;
+            // Cria um vetor para armazenar os códigos dos filmes
+            vector<string> codigos(numFilmes);
+            for (int i = 0; i < numFilmes; ++i) {
+                cin >> codigos[i];
             }
+
+            banco.getCliente(cpf)->locacaoMidia(codigos);
+            codigos.clear();
+
+        }
+
+        else if(entrada == "DV"){
+        cout << "Digite o CPF do cliente: ";
+        cin >> cpf;
+	    cout << "Digite o codigo da midia que sera devolvida (para encerrar digite \"sair\"): ";
+
+	    while (cin >> codigo && codigo != "sair") {
+	        codigos.push_back(codigo);
+	    }
+        try{
+            banco.getCliente(cpf)->Devolver_Midia(codigos);
+        }
+        catch (invalid_argument &e){
+            cout << "ERRO: " << e.what() << endl;
+        }
+        codigos.clear();
         }
 
 

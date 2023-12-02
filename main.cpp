@@ -66,9 +66,53 @@ int main(){
         }
 
         else if(entrada == "AL"){
+            try {
+                string cpf;
+                int numFilmes;
+                cin >> cpf >> numFilmes;
+
+                // Verifica se o CPF existe na lista de clientes antes de prosseguir
+                if (!bancoClientes.Pesquisar(cpf)) {
+                    throw invalid_argument("ERRO:CPFinexistente");
+                }
+
+                // Cria um vetor para armazenar os códigos dos filmes
+                vector<string> codigos(numFilmes);
+                for (int i = 0; i < numFilmes; ++i) {
+                    cin >> codigos[i];
+                }
+
+                // Verificar se o codigo existe na lista de FILMES antes de prosseguir
+
+                locacaoMidia(midias, codigos);
+                
+              // Captura exceções do tipo invalid_argument que podem ser lançadas pela lógica de aluguel
+              // e imprime uma mensagem de erro correspondente usando e.what()
+            } catch (invalid_argument &e) {
+                cout << "ERRO: " << e.what() << endl;
+            }
 
         }
         else if(entrada == "DV"){
+            try {
+                string cpf;
+                int numFilmes;
+                cin >> cpf >> numFilmes;
+
+                vector<string> codigos(numFilmes);
+                for (int i = 0; i < numFilmes; ++i) {
+                    cin >> codigos[i];
+                }
+
+                // Verifica se o CPF existe na lista de clientes antes de prosseguir
+                if (!bancoClientes.Pesquisar(cpf)) {
+                    throw invalid_argument("ERRO:CPFinexistente");
+                }
+
+                Devolver_Midia(codigos);
+            } catch (invalid_argument &e) {
+                cout << "Erro: " << e.what() << endl;
+            }
         }
 
 

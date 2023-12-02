@@ -93,6 +93,20 @@ double Cliente::Calcular_Valor(string codigo, string rentDate) {
   int dias = diasCorridos(rentDate);
   string type = verificarTipoMidia(codigo);
 
+  //LINHAS ALTERADAS PARA DIA =< 0 HORAS
+if (dias == 0) {
+    // Aplica desconto de 40% 
+    if (type == "DL") { //DVD’s Lançamento
+        valor = 20 * 0.6;
+        return valor;
+    }else if (type == "DE") {//DVD’s Estoque
+        valor = 10 * 0.6;
+        return valor;
+  }else {
+        cout << "Código não encontrado ou inválido para menos de 1 dia." << endl;
+    }
+} else {
+
   if (type == "DL") {//DVD’s Lançamento
     valor = 20 * dias;
   }
@@ -107,8 +121,8 @@ double Cliente::Calcular_Valor(string codigo, string rentDate) {
     valor = estaRebobinada ? 5 + 2 : 5; //preço fixo
   }
   else {
-    cerr << "Código não encontrado";
+    cout << "Código não encontrado";
   }
-
   return valor;
+}
 }

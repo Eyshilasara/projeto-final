@@ -1,7 +1,4 @@
 #include "ArquivoClientes.hpp"
-using namespace std;
-
-
 
 void BancoClientes::cadastrarCliente(string cpf, string nome){
     map<string , Cliente*> m;

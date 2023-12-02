@@ -9,7 +9,6 @@ int main(){
     char ordem;
     string cpf;
 
-
     do{
         cin >> entrada;
         if(entrada == "CC"){

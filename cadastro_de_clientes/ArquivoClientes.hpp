@@ -4,9 +4,11 @@
 #include <iostream>
 #include <map>
 #include <ctime>
+#include <string>
 #include <sstream> 
 #include <iomanip>  // ws
 #include <fstream>
+#include <stdexcept>
 #include "Cliente.hpp"
 
 using namespace std;
@@ -18,7 +20,6 @@ class BancoClientes{
   
     time_t now = time(0);          // Define a data que começou uma execucao
     char* dt = ctime(&now);
-
 
     public:
     BancoClientes() : file("Clientes.txt", std::ios::in | std::ios::out| std::ios::app) {

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "cadastro_de_clientes\ArquivoClientes.hpp"
-#include "cadastro_de_midia\cadastroMidia.cpp"
+#include "cadastro_de_midia\cadastroMidia.hpp"
 
 int main(){
 

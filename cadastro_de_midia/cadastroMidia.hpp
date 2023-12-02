@@ -7,6 +7,6 @@
 #include <iostream>  
 
 std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme);
-void excluirMidia(int codigo);
+void removerMidia(int codigo);
 
 #endif

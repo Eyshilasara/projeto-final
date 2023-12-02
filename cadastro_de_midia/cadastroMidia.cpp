@@ -28,7 +28,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         std::cin >> codigo;
         if (std::cin.fail() || std::to_string(codigo).length() != 4)
         {
-            std::cout << "Codigo invalido. Por favor, insira novamente." << std::endl;
+            std::cout << "ERRO: Codigo invalido. Por favor, insira novamente." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
@@ -52,7 +52,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         }
         else
         {
-            std::cout << "Tipo de midia invalido. Por favor, insira novamente." << std::endl;
+            std::cout << "ERRO: Tipo de midia invalido. Por favor, insira novamente." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
@@ -72,7 +72,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             }
             else
             {
-                std::cout << "Grupo invalido. Por favor, insira novamente." << std::endl;
+                std::cout << "ERRO: Grupo invalido. Por favor, insira novamente." << std::endl;
             }
         }
         std::cout << "Qual a categoria da mídia? (As opções são lancamento, promocao ou estoque. Lembre-se de usar sempre letras minúsculas!)" << std::endl;
@@ -86,7 +86,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             }
             else
             {
-                std::cout << "Categoria invalida. Por favor, insira novamente." << std::endl;
+                std::cout << "ERRO: Categoria invalida. Por favor, insira novamente." << std::endl;
 
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -110,7 +110,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             }
             else
             {
-                std::cout << "Título inválido. Por favor, siga as instruções." << std::endl;
+                std::cout << "ERRO: Título inválido. Por favor, siga as instruções." << std::endl;
             }
         }
         std::cout << "Qual o genero da midia? "
@@ -125,7 +125,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             }
             else
             {
-                std::cout << "Genero inválido. Por favor, siga as instruções." << std::endl;
+                std::cout << "ERRO: Genero inválido. Por favor, siga as instruções." << std::endl;
             }
         }
         if (grupo == "filme")
@@ -136,7 +136,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             {
                 if (std::cin.fail())
                 {
-                    std::cout << "Entrada invalida. Por favor, insira novamente." << std::endl;
+                    std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -162,7 +162,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 }
                 else
                 {
-                    std::cout << "Plataforma invalida. Por favor, insira novamente." << std::endl;
+                    std::cout << "ERRO: Plataforma invalida. Por favor, insira novamente." << std::endl;
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
                 }
@@ -184,7 +184,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 }
                 else
                 {
-                    std::cout << "Cantor ou banda inválido. Por favor, siga as instruções." << std::endl;
+                    std::cout << "ERRO: Cantor ou banda inválido. Por favor, siga as instruções." << std::endl;
                 }
             }
 
@@ -195,7 +195,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
             {
                 if (std::cin.fail())
                 {
-                    std::cout << "Entrada invalida. Por favor, insira novamente." << std::endl;
+                    std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -218,7 +218,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 }
                 else
                 {
-                    std::cout << "Entrada invalida. Por favor, insira novamente." << std::endl;
+                    std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -234,7 +234,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         {
             if (std::cin.fail())
             {
-                std::cout << "Entrada invalida. Por favor, insira novamente." << std::endl;
+                std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                 // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -253,7 +253,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         {
             if (std::cin.fail())
             {
-                std::cout << "Entrada invalida. Por favor, insira novamente." << std::endl;
+                std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                 // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
@@ -269,7 +269,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         return "Mídia cadastrada com sucesso!";
     }
 }
-void excluirMidia(int codigo)
+void removerMidia(int codigo)
 {
 // Encontrar a mídia com base no código
     std::vector<Midia> midia;

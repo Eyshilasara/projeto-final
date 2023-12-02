@@ -1,6 +1,0 @@
- 
-CADASTRO DE CLIENTES Fri Dec  1 15:07:39 2023
- 
-124 artur
-125 andrea
-920 roberto

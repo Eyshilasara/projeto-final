@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "classes_cadastro.hpp"
 
-std::string cadastrarMidia(Midia &midias)
+std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme)
 {
     std::string tipo;
     std::string titulo;
@@ -93,7 +93,7 @@ std::string cadastrarMidia(Midia &midias)
             std::cout << "Qual a nota de crítica? (Use apenas numeros inteiros)" << std::endl;
             if (std::cin >> notaCritica)
             {
-                filme.setnotaCritica(notaCritica);
+                filme.setNotaCritica(notaCritica);
             }
             else
             {
@@ -102,23 +102,22 @@ std::string cadastrarMidia(Midia &midias)
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
-        
     }
     else if (grupo == "jogo")
     {
-        while(true)
+        while (true)
         {
-        std::cout << "Qual a plataforma do jogo? (As opções são PS4, XBOX ou PC. Lembre-se de usar sempre letras maiusculas!)" << std::endl;
-        std::cin >> plataforma;
-        if(plataforma == "PS4" || plataforma == "XBOX" || plataforma == "PC")
-        {
-            break;
-        }
-        else
-        {
-            std::cout << "Plataforma invalida. Por favor, insira novamente." << std::endl;
-        }
-        jogo.setPlataforma(plataforma);
+            std::cout << "Qual a plataforma do jogo? (As opções são PS4, XBOX ou PC. Lembre-se de usar sempre letras maiusculas!)" << std::endl;
+            std::cin >> plataforma;
+            if (plataforma == "PS4" || plataforma == "XBOX" || plataforma == "PC")
+            {
+                break;
+            }
+            else
+            {
+                std::cout << "Plataforma invalida. Por favor, insira novamente." << std::endl;
+            }
+            jogo.setPlataforma(plataforma);
         }
     }
     else if (grupo == "disco")
@@ -161,7 +160,7 @@ std::string cadastrarMidia(Midia &midias)
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
-    fitaVideo.setRebobinado(bool rebobinado);
+        fitaVideo.setRebobinado(rebobinado);
     }
 
     std::cout << "Qual a quantidade total da midia? "
@@ -170,7 +169,7 @@ std::string cadastrarMidia(Midia &midias)
     midia.setQuantidadeTotal(quantidadeTotal);
 
     std::cout << "Qual a quantidade disponivel da midia? "
-            << "Use apenas numeros inteiros!" << std::endl;
+              << "Use apenas numeros inteiros!" << std::endl;
     std::cin >> quantidadeDisponivel;
     midia.setQuantidadeDisponivel(quantidadeDisponivel);
 
@@ -181,15 +180,15 @@ std::string cadastrarMidia(Midia &midias)
 void excluirMidia(int codigo)
 {
     // Encontrar a mídia com base no código
-    std::vector<Midia> midias;
+    std::vector<Midia> midia;
 
-    auto it = std::find_if(midias.begin(), midias.end(), [codigo](const Midia &m)
+    auto it = std::find_if(midia.begin(), midia.end(), [codigo](const Midia &m)
                            { return m.getCodigo() == codigo; });
 
-    if (it != midias.end())
+    if (it != midia.end())
     {
         // Remover a mídia se encontrada
-        midias.erase(it);
+        midia.erase(it);
         std::cout << "Mídia excluída com sucesso." << std::endl;
     }
     else

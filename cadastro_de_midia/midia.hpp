@@ -9,7 +9,7 @@ protected:
     std::string tipo;  // DVD ou FITA
     std::string titulo;
     int codigo;
-    std::string genero;// terror comed,etc.
+    std::string genero;// terror, comedia,etc.
     int quantidadeDisponivel;
     int quantidadeTotal;
 

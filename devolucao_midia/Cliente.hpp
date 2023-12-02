@@ -9,10 +9,10 @@ using namespace std;
 class Cliente : public Pessoa {
   public:
       Cliente(const string& nome, long long cpf);
-      void Devolver_Midia(vector<string> codes);
-      int Calcular_Valor(string codigo, string rentDate);
-      int getRentElapsedDays(string rentDate);
-
+      void locacaoMidia(vector<string> codigos);
+      void Devolver_Midia(vector<string> codigos);
+      double Calcular_Valor(string codigo, string rentDate);
+      int diasCorridos(string aluguel);
 };
 
 #endif

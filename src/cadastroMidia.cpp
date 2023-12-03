@@ -3,12 +3,14 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "midia.hpp"
+#include "..\include\midia.hpp"
 #include "filme.hpp"
 #include "jogo.hpp"
 #include "disco.hpp"
 #include "fitaVideo.hpp"
 #include "dvd.hpp"
+#include "cadastroMidia.hpp"
+#include "..\include\escreverNoArquivo.hpp"
 
 
 
@@ -76,7 +78,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 std::cout << "ERRO: Grupo invalido. Por favor, insira novamente." << std::endl;
             }
         }
-        std::cout << "Qual a categoria da mídia? (As opções são lancamento, promocao ou estoque. Lembre-se de usar sempre letras minúsculas!)" << std::endl;
+        std::cout << "Qual a categoria da midia? (As opçoes sao lancamento, promocao ou estoque. Lembre-se de usar sempre letras minúsculas!)" << std::endl;
         while (true)
         {
             std::cin >> categoria;
@@ -95,6 +97,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
         }
         dvd.setCategoria(categoria);
     }
+
     std::cout << "Qual o titulo da midia? "
                   << "(Sem caracteres especiais. Lembre-se de usar sempre letras minusculas e colocar o titulo entre aspas!)" << std::endl;
         std::cin >> titulo;
@@ -103,8 +106,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
         while (std::cin)
         {
             if (std::all_of(titulo.begin(), titulo.end(), [](char c)
-                            { return std::islower(c) || std::isalnum(c); }) &&
-                titulo[0] == '"' && titulo.back() == '"')
+                            { return std::islower(c) || std::isalnum(c); }))
             {
                 midia.setTitulo(titulo);
                 break;
@@ -130,6 +132,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 std::cout << "ERRO: Genero invalido. Por favor, siga as instrucoes." << std::endl;
             }
         }
+
         if (grupo == "filme")
         {
             std::cout << "Qual a nota de critica? (Use apenas numeros inteiros)" << std::endl;
@@ -151,7 +154,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
 
             filme.setNotaCritica(notaCritica);
         }
-    
+        
         else if (grupo == "jogo")
         {
             while (true)
@@ -171,6 +174,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 jogo.setPlataforma(plataforma);
             }
         }
+
         else if (grupo == "disco")
         {
             std::cout << "Qual o cantor ou banda do disco? (Sem caracteres especiais. Lembre-se de usar sempre letras minusculas e colocar o nome do cantor/banda entre aspas!)" << std::endl;
@@ -207,7 +211,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                     break;
                 }
             }
-
+        }
 
         if (tipo == "fita de video")
         {
@@ -247,6 +251,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 break;
             }
         }
+
         midia.setQuantidadeTotal(quantidadeTotal);
 
         std::cout << "Qual a quantidade disponivel da midia? "
@@ -267,11 +272,12 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             }
         }
         midia.setQuantidadeDisponivel(quantidadeDisponivel);
-
+        escreverNoArquivo(midia,"midias.txt",dvd,filme,fitaVideo,disco,jogo);
         std::cout << "Mídia cadastrada com sucesso!" << std::endl;
       
-    }
 }
+
+
 void removerMidia(int codigo)
 {
     std::ifstream inputFile("midias.txt");

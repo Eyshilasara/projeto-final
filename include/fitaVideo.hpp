@@ -5,7 +5,7 @@
 
 class FitaVideo : public Midia {
 protected:
-        bool rebobinado;
+        bool rebobinado = 0;
 
     public:
         FitaVideo(const std::string& _tipo, const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, bool _rebobinado);

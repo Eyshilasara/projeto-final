@@ -1,5 +1,5 @@
-#ifndef src\cadastroMidia.cpp
-#define CADASTRO_MIDIA_CPP
+#ifndef CADASTRO_MIDIA_HPP
+#define CADASTRO_MIDIA_HPP
 
 #include "cadastroMidia.hpp" 
 #include "midia.hpp"

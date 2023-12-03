@@ -1,8 +1,8 @@
 #include <iostream>
-#include "cadastro_de_clientes\BancoClientes.hpp"
-#include "include\cadastroMidia.hpp"
-#include "include\Gerenciador_de_arquivos.hpp"
-#include "include\controle_locacao.hpp"
+#include "..\include\cadastroMidia.hpp"
+#include "..\include\Gerenciador_de_arquivos.hpp"
+#include "..\include\controle_locacao.hpp"
+#include "..\include\ArquivoClientes.hpp"
 
 
 
@@ -12,6 +12,7 @@ int main(){
 
     BancoClientes banco;
     std::string entrada;
+    char opcao;
     std::string nome;
     std::string cpf;
     char ordem;
@@ -23,6 +24,7 @@ int main(){
     Disco disco;
     DVD dvd;
     int codigo;
+    std::vector<std::vector<std::string>> midiasOrdenadas;
     
     do{
         std::cin >> entrada;
@@ -70,11 +72,11 @@ int main(){
         }
 
         else if(entrada == "LF"){
-            listarFilmes(std::vector<std::vector<std::string>> & midias, char entrada);
+            listarFilmes(midiasOrdenadas,opcao);
         }
 
         else if(entrada == "LA"){
-            lerArquivo(std::string midiastxt)
+            lerArquivo("midias.txt");
         }
         
         else if(entrada == "CF"){

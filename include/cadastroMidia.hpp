@@ -1,4 +1,4 @@
-#ifndef CADASTRO_MIDIA_CPP
+#ifndef src\cadastroMidia.cpp
 #define CADASTRO_MIDIA_CPP
 
 #include "cadastroMidia.hpp" 
@@ -8,12 +8,20 @@
 #include "disco.hpp"
 #include "fitaVideo.hpp"
 #include "dvd.hpp"
-
 #include <string>
-#include <iostream>  
+#include <iostream> 
+#include <vector> 
+#include <algorithm>
+#include <limits>
+
 
 void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme);
 
 void removerMidia(int codigo);
+
+void listarFilmes(std::vector<std::vector<std::string>>& midias, char entrada);
+
+void lerArquivo(std::string midiastxt);
+
 
 #endif

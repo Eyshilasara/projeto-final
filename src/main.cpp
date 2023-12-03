@@ -1,8 +1,8 @@
 #include <iostream>
-#include "..\include\ArquivoClientes.hpp"
-#include "..\include\cadastroMidia.hpp"
-#include "..\include\Gerenciador_de_arquivos.hpp"
-#include "..\include\controle_locacao.hpp"
+#include "cadastro_de_clientes\BancoClientes.hpp"
+#include "include\cadastroMidia.hpp"
+#include "include\Gerenciador_de_arquivos.hpp"
+#include "include\controle_locacao.hpp"
 
 
 
@@ -70,12 +70,11 @@ int main(){
         }
 
         else if(entrada == "LF"){
-
-
+            listarFilmes(std::vector<std::vector<std::string>> & midias, char entrada);
         }
 
         else if(entrada == "LA"){
-
+            lerArquivo(std::string midiastxt)
         }
         
         else if(entrada == "CF"){

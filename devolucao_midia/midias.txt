@@ -1,4 +1,0 @@
-12 15 20 "Guerra nas Estrelas" Acao 2 Lancamento Filme 0 ARTISTA_MIDIA_ (string) CD_FAIXAS MIDIA [sdaddas,gfgf]
-2 3 20 "Guerra nas Estrelas" Acao 2 Promocao Filme 0 ARTISTA_MIDIA_ (string) CD_FAIXAS MIDIA_ [sdaddas,gfgf]
-3 13 15 "Guerra nas Estrelas" Acao 2 Estoque Filme 0 ARTISTA_MIDIA_ (string) CD_FAIXAS MIDIA_ [sdaddas,gfgf]
-4 6 15 "Guerra nas Estrelas" Acao 0 Fita Filme 0 ARTISTA_MIDIA_ (string) CD_FAIXAS MIDIA_ [sdaddas,gfgf]

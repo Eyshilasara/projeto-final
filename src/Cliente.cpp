@@ -1,20 +1,19 @@
-#include "Cliente.hpp"
+#include "../include/Cliente.hpp"
 
-using namespace std;
-using namespace chrono;
+using namespace std::chrono;
 
-string Cliente::get_nome(){
+std::string Cliente::get_nome(){
     return this->_nome;
 }
 
-string Cliente::get_cpf(){
+std::string Cliente::get_cpf(){
     return this->_cpf;
 }
 
-void Cliente::locacaoMidia(vector<string>& codigos) {
-  vector<vector<string>> locacoes = PegarLinhasDoArquivo("locacoes.txt");
-  vector<string> locacao;
-  string dataAtual;
+void Cliente::locacaoMidia(std::vector<std::string>& codigos) {
+  std::vector<std::vector<std::string>> locacoes = PegarLinhasDoArquivo("locacoes.txt");
+  std::vector<std::string> locacao;
+  std::string dataAtual;
   
     for (const auto& codigo : codigos) {
       //verifica e atualiza a disponível para locacao para a mídia específicada pelo codigo
@@ -29,13 +28,13 @@ void Cliente::locacaoMidia(vector<string>& codigos) {
     novoArquivo("locacoes.txt", locacoes);
 }
 
-void Cliente::Devolver_Midia(vector<string> codigos) {
+void Cliente::Devolver_Midia(std::vector<std::string> codigos) {
   double valorTotal = 0, valor = 0;
   
-  string dataAtual;
-  cout << dataAtual.replace(0, 0, "") << endl;
+  std::string dataAtual;
+  std::cout << dataAtual.replace(0, 0, "") << std::endl;
   
-  vector<vector<string>> cliente = filtro("locacoes.txt", 1, this->_cpf, true);
+  std::vector<std::vector<std::string>> cliente = filtro("locacoes.txt", 1, this->_cpf, true);
 
   //verifica se o cliente foi encontrado em alguma locação
   if (cliente[0][1] == this->_cpf) {
@@ -56,37 +55,37 @@ void Cliente::Devolver_Midia(vector<string> codigos) {
       valorTotal += valor;
     }
 
-    cout << "Valor total: R$ " << valorTotal << endl;
+    std::cout << "Valor total: R$ " << valorTotal << std::endl;
   }
   else {
-    cerr << "CPF não encontrado";
+    std::cerr << "CPF não encontrado";
   }
 }
 
-int Cliente::diasCorridos(string aluguel) {
+int Cliente::diasCorridos(std::string aluguel) {
   tm tm = {};
-  string data = aluguel;
-  stringstream ss(aluguel);
-  ss >> get_time(&tm, "%Y-%m-%d");
+  std::string data = aluguel;
+  std::stringstream ss(aluguel);
+  ss >> std::get_time(&tm, "%Y-%m-%d");
   time_t tempo = mktime(&tm);
   system_clock::time_point momentoUsuario = system_clock::from_time_t(tempo);
   system_clock::time_point momentoAtual = system_clock::now();
-  auto duracao = chrono::duration_cast<chrono::hours>(momentoAtual - momentoUsuario);
+  auto duracao = std::chrono::duration_cast<std::chrono::hours>(momentoAtual - momentoUsuario);
   return duracao.count() / 24;
 }
 
 //gera numero aleatorio entre 0 e 1
 bool fitaEstaRebobinada() {
-  random_device rd;
-  mt19937 gen(rd());
-  uniform_int_distribution<> distrib(0, 1);
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distrib(0, 1);
   return distrib(gen) == 1;
 }
 
-double Cliente::Calcular_Valor(string codigo, string rentDate) {
+double Cliente::Calcular_Valor(std::string codigo, std::string rentDate) {
   double valor = 0;
   int dias = diasCorridos(rentDate);
-  string type = verificarTipoMidia(codigo);
+  std::string type = verificarTipoMidia(codigo);
 
   if (type == "DL") {//DVD’s Lançamento
     valor = 20 * dias;
@@ -102,7 +101,7 @@ double Cliente::Calcular_Valor(string codigo, string rentDate) {
     valor = estaRebobinada ? 5 + 2 : 5; //preço fixo
   }
   else {
-    cerr << "Código não encontrado";
+    std::cerr << "Código não encontrado";
   }
 
   return valor;

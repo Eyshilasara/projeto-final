@@ -2,10 +2,15 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "classesCadastro.hpp"
+#include <limits>
+#include "midia.hpp"
+#include "filme.hpp"
+#include "jogo.hpp"
+#include "disco.hpp"
+#include "fitaVideo.hpp"
+#include "dvd.hpp"
 
-std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme)
-{
+std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme){
     std::string tipo;
     std::string titulo;
     int codigo;
@@ -269,6 +274,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         return "Mídia cadastrada com sucesso!";
     }
 }
+
 void removerMidia(int codigo)
 {
 // Encontrar a mídia com base no código

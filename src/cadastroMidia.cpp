@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "..\include\midia.hpp"
+#include "midia.hpp"
 #include "filme.hpp"
 #include "jogo.hpp"
 #include "disco.hpp"

@@ -1,5 +1,0 @@
-202301 1 20 dvd filme lancamento "Guerra nas Estrelas" acao -12.5 0 nenhum nenhuma 0
-202302 1 25 dvd jogo estoque "Guerra nas Estrelas" acao -12.5 0 nenhum nenhuma 0
-202303 2 15 dvd disco promocao "Guerra nas Estrelas" acao -12.5 0 nenhum nenhuma 0
-202304 1 102 "fita de video" nenhum nenhum "Guerra nas Estrelas" acao -12.5 0 nenhum nenhuma 0
-

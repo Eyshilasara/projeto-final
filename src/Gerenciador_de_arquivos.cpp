@@ -257,48 +257,48 @@ bool estoque(const string& nomeArquivo, string codigo, int status) {
 	}
 
 	vector<vector<string>> midia = filtro("midias.txt", 0, codigo, true);
-  vector<vector<string>> midias = PegarLinhasDoArquivo("midias.txt");
+  	vector<vector<string>> midias = PegarLinhasDoArquivo("midias.txt");
   
 	int quantidadeDisponivel = stoi(midia[0][1]);
-  int quantidadeTotal = stoi(midia[0][2]);
+  	int quantidadeTotal = stoi(midia[0][2]);
 	int tamQtd_disponivel;
     
 	string linha;
 	bool foiEncontrado = false;
 	vector<string> linhas;
 
-  bool alterou = false;
-  
-  while (getline(arquivo, linha)) {    
-		if (linha.find(codigo + " ") != string::npos) {
+	bool alterou = false;
+	
+	while (getline(arquivo, linha)) {    
+			if (linha.find(codigo + " ") != string::npos) {
 
-			foiEncontrado = true;
+				foiEncontrado = true;
 
-      if(status == 1){//se for devolucao
-        quantidadeDisponivel++;
-        if(quantidadeDisponivel > quantidadeTotal){
-          cerr << "Erro ao atualizar a quantidade disponivel.";
-          return false;
-        }
+		if(status == 1){//se for devolucao
+			quantidadeDisponivel++;
+			if(quantidadeDisponivel > quantidadeTotal){
+			cerr << "Erro ao atualizar a quantidade disponivel.";
+			return false;
+			}
 
-        tamQtd_disponivel = numDigitos(quantidadeDisponivel);
-        
-        linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
-        alterou = true;
-      }
-      
-      else {//se for locacao
-        //verificar se há qtd disponivel
-        if(quantidadeDisponivel > 0){
-          quantidadeDisponivel--;
-          tamQtd_disponivel = numDigitos(quantidadeDisponivel);
-          
-          linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
-          alterou = true;
-        } else {
-          cout << "Não há quantidade disponível para locação" << endl;
-        }
-      }
+			tamQtd_disponivel = numDigitos(quantidadeDisponivel);
+			
+			linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
+			alterou = true;
+		}
+		
+		else {//se for locacao
+			//verificar se há qtd disponivel
+			if(quantidadeDisponivel > 0){
+			quantidadeDisponivel--;
+			tamQtd_disponivel = numDigitos(quantidadeDisponivel);
+			
+			linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
+			alterou = true;
+			} else {
+			cout << "Não há quantidade disponível para locação" << endl;
+			}
+		}
       
 		}
 

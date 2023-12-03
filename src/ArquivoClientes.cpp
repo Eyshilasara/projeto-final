@@ -49,7 +49,7 @@ void BancoClientes::cadastrarCliente(std::string cpf, std::string nome){
                 file << cpf << " " << nome << " " << dataCadastro<< std::endl;
             }
             else 
-                std::cerr << "Arquivo não está aberto." << std::endl;
+                std::cerr << "Arquivo nao esta aberto." << std::endl;
             std::cout << "Cliente " << cpf  << " cadastrado com sucesso." << std::endl;
         }
 
@@ -57,7 +57,7 @@ void BancoClientes::cadastrarCliente(std::string cpf, std::string nome){
     }
 
     else{
-        throw std::invalid_argument("CPF Inválido.");
+        throw std::invalid_argument("CPF Invalido.");
     }
 }
 
@@ -95,13 +95,17 @@ void BancoClientes::removerCliente(std::string cpf){
         const char * p = "Clientes.txt";
         remove(p);
         rename("temp.txt", p); //!< Descarta o arquivo antigo e subtitui pelo atualizado.
-
     }
+
+    
+
     else{
-        throw std::invalid_argument("Cliente não encontrado.");
         temp.close();
         file.close();
-        rename("temp.txt","Clientes.txt");
+        const char * p = "Clientes.txt";
+        remove(p);
+        rename("temp.txt", p); //!< Descarta o arquivo antigo e subtitui pelo atualizado.
+        throw std::invalid_argument("Cliente nao encontrado."); 
     }
 }
 
@@ -121,16 +125,18 @@ void BancoClientes::imprimirRelatorio(char ordem){
     
     std::string line;
     std::fstream file("Clientes.txt",std::ios::in | std::ios::out| std::ios::app);
-    
+    std::cout << "###################################"<< std::endl;
+    std::cout << "\n    CPF     Nome  Data/cadastro"<< std::endl;
+    std::cout << std::endl;
+
     while(getline(file, line)){ 
         std::string key;
         std::string value;
         std::stringstream ss(line); 
-        getline(ss, key, ' '); 
-        ss >> std::ws;              
+        getline(ss, key, ' ');              
         getline(ss, value);   
 
-        if(key != "CADASTRO" && key != ""){
+        if(key != ""){
             historico[stoll(key)] = value;
         }
     }
@@ -148,6 +154,7 @@ void BancoClientes::imprimirRelatorio(char ordem){
             std::cout << it2->second << " " << it2->first << std::endl;
 
     }
+    std::cout << "\n###################################"<< std::endl;
     file.close();
 
 }
@@ -160,7 +167,7 @@ Cliente* BancoClientes::getCliente(std::string cpf){
         return this->banco[cpf];
     }
     else{
-        throw std::invalid_argument("Cliente não encontrado");
+        throw std::invalid_argument("Cliente nao encontrado");
     }
 }
 
@@ -170,15 +177,17 @@ bool BancoClientes::isValidCPF(std::string cpf) {
     * Função que verifica se o cpf apresenta um formato válido.
     */
 
-    // unsigned lenght = 0;
+    unsigned length = 0;
     // int ver1 = 0, ver2 = 0;
     // char aux;
 
-    // while (cpf[lenght]) {
-    //     lenght++;
-    // }
+    length = cpf.length();
 
-    // if (lenght != 11)
+    if(length == 11)
+        return true;
+    return false;
+
+    // if (length != 11)
     //     return false;
 
     // for (int j = 0; j < 9; j++) {
@@ -197,12 +206,12 @@ bool BancoClientes::isValidCPF(std::string cpf) {
     // ver2 += ver1 * 9;
     // ver2 %= 11;
 
-    // aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(lenght) - 2];
+    // aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(length) - 2];
     // if (atoi(&aux) == ver1) {
-    //     aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(lenght) - 1];
+    //     aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(length) - 1];
     //     if (atoi(&aux) == ver2)
     //         return true;
     // }
     // return false;
-    return true;
+
 }

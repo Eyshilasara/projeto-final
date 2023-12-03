@@ -13,8 +13,8 @@ int main(){
     BancoClientes banco;
     std::string entrada;
     std::string nome;
-    char ordem;
     std::string cpf;
+    char ordem;
     std::vector<std::string> codigos;
     Midia midia;
     Jogo jogo;
@@ -27,7 +27,10 @@ int main(){
     do{
         std::cin >> entrada;
         if(entrada == "CC"){
+            std::cout << "Cadastro de Clientes." << endl;
+            std::cout << "Digite um CPF: ";
             std::cin >> cpf;
+            cout << "Digite um nome: ";
             std::cin >> nome;
             try{
                 banco.cadastrarCliente(cpf, nome);
@@ -39,7 +42,9 @@ int main(){
         }
 
         else if(entrada == "RC"){
-          std::cin >> cpf;
+            std::cout << "Remocao de Clientes." << endl;
+            std::cout << "Digite um CPF: ";
+            std::cin >> cpf;
             try{
                 banco.removerCliente(cpf);
             }
@@ -51,7 +56,8 @@ int main(){
 
         else if(entrada == "LC"){
             try{
-            std::cout << "Digite C para ordenar de acordo com o código ou N para ordem alfabética dos títulos."<< std::endl;
+            std::cout << "Listagem de Clientes." << endl;
+            std::cout << "Digite C para ordenar de acordo com o codigo ou N para ordem alfabetica dos nomes: ";
             std::cin >> ordem;
             banco.imprimirRelatorio(ordem);
 
@@ -73,7 +79,8 @@ int main(){
         }
         
         else if(entrada == "CF"){
-           cadastrarMidia(midia, dvd, disco, jogo, fitaVideo, filme);
+            //!> cin e cout incluso na função abaixo  
+            cadastrarMidia(midia, dvd, disco, jogo, fitaVideo, filme);
         }
         
         

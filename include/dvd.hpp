@@ -8,7 +8,9 @@ protected:
     std::string categoria;// Lançamento, promoção ou estoque.
     std::string grupo;// jogo, filme ou disco.
 public:
-    DVD(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidaDisponivel, const std::string& _tipo, const std::string& _categoria, const std::string _grupo);
+    DVD(const std::string& _tipo, const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _categoria, const std::string _grupo);
+    
+    DVD(){};
     
     void exibirInfo() const;
 

@@ -3,13 +3,15 @@
 #include <string>
 #include <vector>
 
-void novoArquivo(std::string nomeArquivo, std::vector<std::vector<std::string>> linhas);
-std::string getCurrentDateAsString();
-std::vector<std::string> converterLinhaParaVetor(std::string);
-std::vector<std::vector<std::string>> PegarLinhasDoArquivo(std::string);
-void relatorio(int, std::string);
-void atualizarDataDeLocacao(const std::string&, std::vector<std::string>, std::string);
-std::string verificarTipoMidia(std::string);
-bool estoque(const std::string&, std::string, int);
-std::vector<std::vector<std::string>> filtro(std::string fileName, int columnNumber, std::string arg, bool isSingleRow);
+using namespace std;
+
+void novoArquivo(string nomeArquivo, vector<vector<string>> linhas);
+string getCurrentDateAsString();
+vector<string> converterLinhaParaVetor(string);
+vector<vector<string>> PegarLinhasDoArquivo(string, bool);
+void relatorio(int, string);
+void atualizarDataDeLocacao(const string&, vector<string>, string, vector<bool>);
+string verificarTipoMidia(string);
+bool estoque(const string&, string, int);
+vector<vector<string>> filtro(string fileName, int columnNumber, string arg, bool isSingleRow);
 #endif // !FILE_REPO_HPP

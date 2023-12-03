@@ -6,12 +6,14 @@ BUILD_DIR = ./build
 SRC_DIR = ./src
 INCLUDE_DIR = ./include
 
-./${TARGET}: ${BUILD_DIR}/ArquivoClientes.o  ${BUILD_DIR}/main.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Gerenciador_de_arquivos.o ${BUILD_DIR}/cadastroMidia.o ${BUILD_DIR}/disco.o ${BUILD_DIR}/dvd.o ${BUILD_DIR}/filme.o ${BUILD_DIR}/fitaVideo.o ${BUILD_DIR}/jogo.o ${BUILD_DIR}/midia.o
+
+./${TARGET}: ${BUILD_DIR}/ArquivoClientes.o  ${BUILD_DIR}/main.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Gerenciador_de_arquivos.o ${BUILD_DIR}/controle_locacao.o ${BUILD_DIR}/cadastroMidia.o ${BUILD_DIR}/disco.o ${BUILD_DIR}/dvd.o ${BUILD_DIR}/filme.o ${BUILD_DIR}/fitaVideo.o ${BUILD_DIR}/jogo.o ${BUILD_DIR}/midia.o
 	${CC} ${CFLAGS} ${BUILD_DIR}/*.o -o ./${TARGET}
 
 
 ${BUILD_DIR}/%.o: ${SRC_DIR}/%.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR} -c $< -o $@
+
 
 
 ${BUILD_DIR}/main.o:  ${SRC_DIR}/main.cpp

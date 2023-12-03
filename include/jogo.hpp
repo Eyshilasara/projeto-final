@@ -8,8 +8,10 @@ protected:
     std::string plataforma = "0";
 
 public:
-    Jogo(const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _tipo, const std::string& _categoria, const std::string _grupo, const std::string _plataforma);
+    Jogo(const std::string& _tipo, const std::string& _titulo, int _codigo, const std::string& _genero, int _quantidadeTotal, int _quantidadeDisponivel, const std::string& _categoria, const std::string _grupo, const std::string _plataforma);
     
+    Jogo(){};
+
     void exibirInfo() const;
 
     void setPlataforma(const std::string& plataforma) {

@@ -3,14 +3,17 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "midia.hpp"
+#include "..\include\midia.hpp"
 #include "filme.hpp"
 #include "jogo.hpp"
 #include "disco.hpp"
 #include "fitaVideo.hpp"
 #include "dvd.hpp"
 
-std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme){
+
+
+void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme)
+{
     std::string tipo;
     std::string titulo;
     int codigo;
@@ -28,19 +31,12 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
     std::cout << "Qual o codigo da midia? "
               << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
     std::cin >> codigo;
-    while (true)
+    while (std::cin.fail() || std::to_string(codigo).length() != 4)
     {
-        std::cin >> codigo;
-        if (std::cin.fail() || std::to_string(codigo).length() != 4)
-        {
-            std::cout << "ERRO: Codigo invalido. Por favor, insira novamente." << std::endl;
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else
-        {
-            break;
-        }
+        std::cout << "ERRO: Codigo invalido. Por favor, insira novamente." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin >> codigo;  // Leia dentro do loop para corrigir o problema
     }
 
     midia.setCodigo(codigo);
@@ -94,7 +90,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 std::cout << "ERRO: Categoria invalida. Por favor, insira novamente." << std::endl;
 
                 std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
         dvd.setCategoria(categoria);
@@ -104,7 +100,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         std::cin >> titulo;
 
         // Verificar se o título contém apenas caracteres alfanuméricos e minúsculas
-        while (true)
+        while (std::cin)
         {
             if (std::all_of(titulo.begin(), titulo.end(), [](char c)
                             { return std::islower(c) || std::isalnum(c); }) &&
@@ -118,6 +114,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 std::cout << "ERRO: Título inválido. Por favor, siga as instruções." << std::endl;
             }
         }
+
         std::cout << "Qual o genero da midia? "
                   << "Lembre-se de usar sempre letras minusculas e sem caracteres especiais!)" << std::endl;
         while (true)
@@ -144,7 +141,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                     std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
                 else
                 {
@@ -169,7 +166,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 {
                     std::cout << "ERRO: Plataforma invalida. Por favor, insira novamente." << std::endl;
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
                 jogo.setPlataforma(plataforma);
             }
@@ -203,13 +200,14 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                     std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
                 else
                 {
                     break;
                 }
             }
+
 
         if (tipo == "fita de video")
         {
@@ -226,7 +224,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                     std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                     // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
             }
             fitaVideo.setRebobinado(rebobinado);
@@ -242,7 +240,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                 // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
             else
             {
@@ -261,7 +259,7 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
                 std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
                 // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '/n');
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
             else
             {
@@ -271,26 +269,47 @@ std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, Fit
         midia.setQuantidadeDisponivel(quantidadeDisponivel);
 
         std::cout << "Mídia cadastrada com sucesso!" << std::endl;
-        return "Mídia cadastrada com sucesso!";
+      
     }
 }
-
 void removerMidia(int codigo)
 {
-// Encontrar a mídia com base no código
-    std::vector<Midia> midia;
+    std::ifstream inputFile("midias.txt");
+    std::ofstream outputFile("temp.txt");
 
-    auto it = std::find_if(midia.begin(), midia.end(), [codigo](const Midia &m)
-                           { return m.getCodigo() == codigo; });
-
-    if (it != midia.end())
+    if (inputFile.is_open() && outputFile.is_open())
     {
-        // Remover a mídia se encontrada
-        midia.erase(it);
-        std::cout << "Mídia excluída com sucesso." << std::endl;
+        std::string line;
+        bool found = false;
+
+        while (std::getline(inputFile, line))
+        {
+            // Verificar se a linha contém o código da mídia
+            if (line.find(std::to_string(codigo)) != std::string::npos)
+            {
+                found = true;
+                continue; // Pular a linha a ser excluída
+            }
+
+            outputFile << line << std::endl;
+        }
+
+        inputFile.close();
+        outputFile.close();
+
+        if (found)
+        {
+            std::remove("midias.txt");
+            std::rename("temp.txt", "midias.txt");
+            std::cout << "Midia excluida com sucesso." << std::endl;
+        }
+        else
+        {
+            std::cout << "Linha não encontrada." << std::endl;
+        }
     }
     else
     {
-        std::cout << "Mídia não encontrada." << std::endl;
+        std::cout << "Erro ao abrir os arquivos." << std::endl;
     }
 }

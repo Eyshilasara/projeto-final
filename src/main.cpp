@@ -1,6 +1,12 @@
 #include <iostream>
 #include "..\include\ArquivoClientes.hpp"
 #include "..\include\cadastroMidia.hpp"
+#include "..\include\Gerenciador_de_arquivos.hpp"
+#include "..\include\controle_locacao.hpp"
+
+
+
+using namespace std;
 
 int main(){
 
@@ -10,20 +16,13 @@ int main(){
     char ordem;
     std::string cpf;
     std::vector<std::string> codigos;
-	std::string codigo;
-    std::string tipo;
-    std::string titulo;
-    int codigo1;
-    std::string genero;
-    int quantidadeTotal;
-    int quantidadeDisponivel;
-    std::string categoria;
-    std::string grupo;
-    int notaCritica;
-    std::string plataforma;
-    std::string cantorBanda;
-    int numeroMusicas;
-    bool rebobinado;
+    Midia midia;
+    Jogo jogo;
+    FitaVideo fitaVideo;
+    Filme filme;
+    Disco disco;
+    DVD dvd;
+    int codigo;
     
     do{
         std::cin >> entrada;
@@ -74,60 +73,61 @@ int main(){
         }
         
         else if(entrada == "CF"){
-            std::string cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo &fitaVideo, Filme &filme);
-        }
-
-        else if(entrada == "RF"){
-            void removerMidia(int codigo);
+           cadastrarMidia(midia, dvd, disco, jogo, fitaVideo, filme);
         }
         
-        else if(entrada == "LF"){
-
+        
+        else if(entrada == "RF"){
+            cin >> codigo;
+            removerMidia(codigo);
         }
+        
 
         else if(entrada == "AL"){
             int numFilmes;
-            std::cin >> cpf >> numFilmes;
+            cout << "Digite o CPF (apenas numeros) do cliente e quantos filmes serao alugados (separados por espaco): ";
+            cin >> cpf >> numFilmes;
 
             if(banco.Pesquisar(cpf)){
             // Cria um vetor para armazenar os códigos dos filmes
-            std::vector<std::string> codigos(numFilmes);
+            vector<string> codigos(numFilmes);
             for (int i = 0; i < numFilmes; ++i) {
-                std::cin >> codigos[i];
+                cout << "Digite o codigo do filme " << i + 1 << ": ";
+                cin >> codigos[i];
             }
 
             try{
-                banco.getCliente(cpf)->locacaoMidia(codigos);
+                locacaoMidia(codigos, cpf);
+                cout << "Midias alugadas com sucesso." << endl;
                 codigos.clear();
             }
-            catch (std::invalid_argument &e) {
-                std::cout << "ERRO: " << e.what() << std::endl;
+            catch (invalid_argument &e) {
+                cout << "ERRO: " << e.what() << endl;
             }
             }
             else{
-                std::cout <<"CPF não encontrado." << std::endl;
+                cout <<"CPF não encontrado." << endl;
             }
-            
+
 
         }
 
         else if(entrada == "DV"){
-        std::cout << "Digite o CPF do cliente: ";
-        std::cin >> cpf;
-	    std::cout << "Digite o codigo da midia que sera devolvida (para encerrar digite \"sair\"): ";
+        int numFilmes;
+        cout << "Digite o CPF (apenas numeros) do cliente e quantos filmes serao devolvidos (separados por espaco): ";
+        cin >> cpf >> numFilmes;
 
-	    while (std::cin >> codigo && codigo != "sair") {
-	        codigos.push_back(codigo);
-	    }
-        try{
-            banco.getCliente(cpf)->Devolver_Midia(codigos);
-        }
-        catch (std::invalid_argument &e){
-            std::cout << "ERRO: " << e.what() << std::endl;
-        }
+        vector<string> codigos(numFilmes);
+            for (int i = 0; i < numFilmes; ++i) {
+                cout << "Digite o codigo do filme " << i + 1 << ": ";
+                cin >> codigos[i];
+            }
+
+            Devolver_Midia(codigos, cpf);
+            cout << "Midias devolvidas com sucesso." << endl;
+
         codigos.clear();
         }
-
 
         else if(entrada == "FS")
             break;
@@ -140,7 +140,7 @@ int main(){
             std::cout << "LF [C|T] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Filmes ordenados por Código ou Título:" << std::endl;
             std::cout << "CC <CPF> <Nome> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - Cadastrar Cliente" << std::endl;
             std::cout << "RC <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Remover Cliente" << std::endl;
-            std::cout << "LC [C|N] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Clientes ordenados por Código ou Nome:" << std::endl;
+            std::cout << "LC [C|N] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Clientes ordenados por CPF ou Nome:" << std::endl;
             std::cout << "AL <CPF> <Codigo1> <Codigo N> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Aluguel Filme" << std::endl;
             std::cout << "DV <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Devolução Filme" << std::endl;
             std::cout << "FS -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Finalizar Sistema" << std::endl;

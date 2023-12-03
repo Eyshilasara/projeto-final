@@ -8,24 +8,26 @@
 #include <chrono>
 #include <ctime>
 
-using namespace std::chrono;
+using namespace std;
+using namespace chrono;
 
-void novoArquivo(std::string nomeArquivo, std::vector<std::vector<std::string>> linhas){
-  std::ofstream arquivo(nomeArquivo);
+void novoArquivo(string nomeArquivo, vector<vector<string>> linhas){
+  ofstream arquivo(nomeArquivo);
   if (!arquivo.is_open()) {
-    std::cerr << "Erro ao escrever no arquivo" << std::endl;
+    cerr << "Erro ao escrever no arquivo" << endl;
     return;
   }
 
-  std::string registro = "";
-  for (const std::vector<std::string>& linha : linhas) {
-    for(const std::string& coluna : linha){
+  string registro = "";
+  for (const vector<string>& linha : linhas) {
+    for(const string& coluna : linha){
       //converter vetor de strings em uma unica string
       registro = registro + coluna + " ";
     }
 
     //escrever no arq e remover espaço da ultima coluna
-    arquivo << registro.substr(0, registro.size() - 1) << std::endl;
+    arquivo << registro.substr(0, registro.size() - 1) << '\n';
+    registro = "";
   }
 
   arquivo.close();
@@ -42,29 +44,33 @@ std::string getCurrentDateAsString() {
 }
 
 //Altera o arquivo de locações, nas colunas de status e data de devolução nas linhas especificadas pelos codigos (args)
-void atualizarDataDeLocacao(const std::string& nomeArq, std::vector<std::string> codigos, std::string cpf) {
+void atualizarDataDeLocacao(const string& nomeArq, vector<string> codigos, string cpf, vector<bool> estoquesValidos) {
   
-	std::ifstream arquivo(nomeArq);
+	ifstream arquivo(nomeArq);
 	if (!arquivo.is_open()) {
-		std::cerr << "Erro ao abrir o arquivo." << std::endl;
+		cerr << "Erro ao abrir o arquivo." << endl;
 		return;
 	}
 
-	std::string linha;
+	string linha;
 	bool foiEncontrado = false;
-	std::vector<std::string> linhas;
-
+	vector<string> linhas;
+  int i = 0;
+  
 	while (getline(arquivo, linha)) {
-		for (std::string codigo : codigos) {//para cada codigo em codigos (arg em args)
+		for (string codigo : codigos) {//para cada codigo em codigos (arg em args)
+      if(!estoquesValidos[i]){
+        continue;
+      }
       
-	 //verificar se o cpf da linha corresponde ao cpf do cliente que está fazendo a locada/devoulvida && o codigo da linha corresponde ao codigo da midia que sera locada/devoulvida
-			if (linha.find(" " + cpf + " ") != std::string::npos && linha.find(" " + codigo + " ") != std::string::npos && isblank(linha[linha.length() - 2])) {
+	    //verificar se o cpf da linha corresponde ao cpf do cliente que está fazendo a locada/devoulvida && o codigo da linha corresponde ao codigo da midia que sera locada/devoulvida
+			if (linha.find(" " + cpf + " ") != string::npos && linha.find(" " + codigo + " ") != string::npos && isblank(linha[linha.length() - 2])) {
 				foiEncontrado = true;
 
 				//atualiza o status
 				linha = linha.replace(0, 1, "1");
 
-				std::string termoSubstituido = getCurrentDateAsString();
+				string termoSubstituido = getCurrentDateAsString();
 
 				//atualiza a data de devolução de 0 para a data atual
 				linha = linha.replace(linha.length() - 2, 10, termoSubstituido);
@@ -74,26 +80,26 @@ void atualizarDataDeLocacao(const std::string& nomeArq, std::vector<std::string>
 	}
 
 	if (!foiEncontrado) {
-		std::cout << "A consulta não gerou resultados." << std::endl;
+		cout << "A consulta não gerou resultados." << endl;
 	}
 
 	arquivo.close();
 
   //============================
-	std::ofstream arquivoSaida(nomeArq);
+	ofstream arquivoSaida(nomeArq);
 	if (!arquivoSaida.is_open()) {
-		std::cerr << "Erro ao escrever no arquivo" << std::endl;
+		cerr << "Erro ao escrever no arquivo" << endl;
 		return;
 	}
-	for (const std::string& linha : linhas) {//reescreve o arquivo com as linhas atualizadas
+	for (const string& linha : linhas) {//reescreve o arquivo com as linhas atualizadas
 		arquivoSaida << linha << '\n';
 	}
 
 	arquivoSaida.close();
 }
 
-std::string removeDoubleQuotes(std::string textoPuro, int i) {
-	std::string texto = "";
+string removeDoubleQuotes(string textoPuro, int i) {
+	string texto = "";
   
 	while (textoPuro[i] != '\"') {
 		texto += textoPuro[i];
@@ -106,9 +112,9 @@ std::string removeDoubleQuotes(std::string textoPuro, int i) {
 }
 
 // Converte a linha do arquivo txt em um vetor
-std::vector<std::string> converterLinhaParaVetor(std::string linha) {
-	std::vector<std::string> resultado;
-	std::string texto;
+vector<string> converterLinhaParaVetor(string linha) {
+	vector<string> resultado;
+	string texto;
 
 	for (int i = 0; i < linha.length(); i++) {
 		// isspace verifica se aquele char é um espaço em branco.
@@ -136,37 +142,38 @@ std::vector<std::string> converterLinhaParaVetor(std::string linha) {
 
 // Pega todas as linhas do arquivo e o transforma num vetor de vetores. O método
 // que o chama que deve fazer a implementação do struct correspondente
-std::vector<std::vector<std::string>> PegarLinhasDoArquivo(std::string nomeArquivo) {
-	std::ifstream arquivo(nomeArquivo);
-	std::vector<std::vector<std::string>> linhas;
+vector<vector<string>> PegarLinhasDoArquivo(string nomeArquivo, bool retornarErro = true) {
+	ifstream arquivo(nomeArquivo);
+	vector<vector<string>> linhas;
 
 	// isspace verifica se o arquivo está aberto.
 	if (arquivo.is_open()) {
-		std::string dadosLinha;
+		string dadosLinha;
 
 		while (getline(arquivo, dadosLinha)) {
-			std::istringstream dados(dadosLinha);
-			std::vector<std::string> linha = converterLinhaParaVetor(dadosLinha);
+			istringstream dados(dadosLinha);
+			vector<string> linha = converterLinhaParaVetor(dadosLinha);
 			linhas.push_back(linha);
 		}
 
 		arquivo.close();
-		return linhas;
 	}
-
 	else {
-		std::cerr << "Erro ao abrir o arquivo." << std::endl;
-		return linhas;
+    if(retornarErro){
+      cerr << "Erro ao abrir o arquivo." << endl;
+    }
 	}
+  
+  return linhas;
 }
 
 //busca na coluna numeroColuna do arquivo especificado a(s) linha(s) em que o(s) registro(s) é(são) igual(is) a arg e retorna a(s) linha(s) em formato de vetor
-std::vector<std::vector<std::string>> filtro(std::string nomeArquivo, int numeroColuna, std::string arg, bool retornarUmaLinha) {
+vector<vector<string>> filtro(string nomeArquivo, int numeroColuna, string arg, bool retornarUmaLinha) {
   
-	std::vector<std::vector<std::string>> linhas = PegarLinhasDoArquivo(nomeArquivo);
-	std::vector<std::vector<std::string>> linhasFiltradas;
+	vector<vector<string>> linhas = PegarLinhasDoArquivo(nomeArquivo);
+	vector<vector<string>> linhasFiltradas;
 
-	for (std::vector<std::string> linha : linhas) {
+	for (vector<string> linha : linhas) {
 		if (linha[numeroColuna] == arg) {
 			if (retornarUmaLinha) {
 				linhasFiltradas.push_back(linha);
@@ -179,9 +186,9 @@ std::vector<std::vector<std::string>> filtro(std::string nomeArquivo, int numero
 }
 
 //TROCAR O NOME DA FUNÇÃO E DAS SUAS VARIAVEIS PARA QUE FIQUE CLARO QUE ELA É RESTRITA AO ARQ LOC
-void relatorio(int relatorio = 0, std::string arg = "") {
-	std::vector<std::vector<std::string>> linhas = PegarLinhasDoArquivo("locacoes.txt");
-	std::vector<std::vector<std::string>> linhasFiltradas;
+void relatorio(int relatorio = 0, string arg = "") {
+	vector<vector<string>> linhas = PegarLinhasDoArquivo("locacoes.txt");
+	vector<vector<string>> linhasFiltradas;
 	switch (relatorio) {
 
 	case 0: //imprimir TODAS as locações (imprimir todo o arquivo)
@@ -196,39 +203,37 @@ void relatorio(int relatorio = 0, std::string arg = "") {
 		break;
 	}
 	for (auto& linha : linhasFiltradas) {
-		std::string dataAluguel = linha[3].substr(8, 2) + "/" + linha[3].substr(5, 2) + "/" + linha[3].substr(0, 4);
-		std::string dataRetorno = linha[4].length() > 1 ? linha[4].substr(8, 2) + "/" + linha[4].substr(5, 2) + "/" + linha[4].substr(0, 4) : linha[4];
+		string dataAluguel = linha[3].substr(8, 2) + "/" + linha[3].substr(5, 2) + "/" + linha[3].substr(0, 4);
+		string dataRetorno = linha[4].length() > 1 ? linha[4].substr(8, 2) + "/" + linha[4].substr(5, 2) + "/" + linha[4].substr(0, 4) : linha[4];
 
-		std::cout << "Status: " << linha[0] << " CPF: " << linha[1] << " Código: " << linha[2]
+		cout << "Status: " << linha[0] << " CPF: " << linha[1] << " Código: " << linha[2]
 			<< " Data de Locação: " << dataAluguel
-			<< " Data de Devolução: " << dataRetorno << std::endl;
+			<< " Data de Devolução: " << dataRetorno << endl;
 	}
 }
 
 //retorna o tipo de mídia de acordo com o codigo informado
-std::string verificarTipoMidia(std::string codigoMidia) {
-	std::vector<std::vector<std::string>> midia = filtro("midias.txt", 0, codigoMidia, true);
+string verificarTipoMidia(string codigoMidia) {
+	vector<vector<string>> midia = filtro("midias.txt", 0, codigoMidia, true);
 
 	//verifica se é ou não uma fita
-	//VERIFICAR O INDICE DA COLUNA ONDE FICARÁ ARMAZENADO "REBOBINADO" (supor: 5)
-	if (midia[0][5] == "0" || midia[0][5] == "1") {
+	if (midia[0][3] != "dvd") {
 		return "F";
 	}
 
-	//verifica o tipo do DVD
-	//VERIFICAR O INDICE DA COLUNA ONDE FICARÁ ARMAZENADO "TIPO" (supor: 6)
-	else if (midia[0][6] == "Lancamento") {
+	//verifica o categoria do DVD
+	else if (midia[0][5] == "lancamento") {
 		return "DL";
 	}
-	else if (midia[0][6] == "Estoque") {
+	else if (midia[0][5] == "estoque") {
 		return "DE";
 	}
-	else if (midia[0][6] == "Promocao") {
+	else if (midia[0][5] == "promocao") {
 		return "DP";
 	}
 
 	else {
-		return "Not Found";
+		return "Não encontrado";
 	}
 }
 
@@ -243,48 +248,55 @@ int numDigitos(int numero) {
 }
 
 //Altera o arquivo de mídias na coluna de quantidade disponível
-bool estoque(const std::string& nomeArquivo, std::string codigo, int status) {
+bool estoque(const string& nomeArquivo, string codigo, int status) {
   
-	std::ifstream arquivo(nomeArquivo);
+	ifstream arquivo(nomeArquivo);
 	if (!arquivo.is_open()) {
-		std::cerr << "Erro ao abrir o arquivo." << std::endl;
+		cerr << "Erro ao abrir o arquivo." << endl;
 		return false;
 	}
 
-	std::vector<std::vector<std::string>> midia = filtro("midias.txt", 0, codigo, true);
-  	std::vector<std::vector<std::string>> midias = PegarLinhasDoArquivo("midias.txt");
+	vector<vector<string>> midia = filtro("midias.txt", 0, codigo, true);
+  vector<vector<string>> midias = PegarLinhasDoArquivo("midias.txt");
   
 	int quantidadeDisponivel = stoi(midia[0][1]);
-	int tamQtd_disponivel = numDigitos(quantidadeDisponivel);
-  	int tamCodigo = numDigitos(stoi(codigo));
+  int quantidadeTotal = stoi(midia[0][2]);
+	int tamQtd_disponivel;
     
-	std::string linha;
+	string linha;
 	bool foiEncontrado = false;
-	std::vector<std::string> linhas;
+	vector<string> linhas;
 
   bool alterou = false;
   
   while (getline(arquivo, linha)) {    
-		if (linha.find(codigo + " ") != std::string::npos) {
+		if (linha.find(codigo + " ") != string::npos) {
 
 			foiEncontrado = true;
 
       if(status == 1){//se for devolucao
-        //VERIFICAR O INDICE DA COLUNA ONDE FICARÁ ARMAZENADO "QTD_DISPONIVEL" (supor: 1)
-        //VERIFICAR O TAMANHO DO CODIGO, SOMAR 1 E PASSAR COMO PRIMEIRO PARÂMETRO NO REPLACE
-        linha = linha.replace(tamCodigo+1, tamQtd_disponivel, std::to_string((quantidadeDisponivel + 1)));
+        quantidadeDisponivel++;
+        if(quantidadeDisponivel > quantidadeTotal){
+          cerr << "Erro ao atualizar a quantidade disponivel.";
+          return false;
+        }
+
+        tamQtd_disponivel = numDigitos(quantidadeDisponivel);
+        
+        linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
         alterou = true;
       }
       
       else {//se for locacao
         //verificar se há qtd disponivel
         if(quantidadeDisponivel > 0){
-          //VERIFICAR O INDICE DA COLUNA ONDE FICARÁ ARMAZENADO "QTD_DISPONIVEL" (supor: 1)
-          //VERIFICAR O TAMANHO DO CODIGO, SOMAR 1 E PASSAR COMO PRIMEIRO PARÂMETRO NO REPLACE
-          linha = linha.replace(tamCodigo+1, tamQtd_disponivel, std::to_string((quantidadeDisponivel - 1)));
+          quantidadeDisponivel--;
+          tamQtd_disponivel = numDigitos(quantidadeDisponivel);
+          
+          linha = linha.replace(7, tamQtd_disponivel, to_string(quantidadeDisponivel));
           alterou = true;
         } else {
-          std::cout << "Não há quantidade disponível para locação" << std::endl;
+          cout << "Não há quantidade disponível para locação" << endl;
         }
       }
       
@@ -293,19 +305,19 @@ bool estoque(const std::string& nomeArquivo, std::string codigo, int status) {
 		linhas.push_back(linha);
 	}
 
-	if (!foiEncontrado) {
-		std::cout << "A consulta não gerou resultados." << std::endl;
+	if (!alterou) {
+		cout << "A consulta não gerou resultados." << endl;
 	}
 
 	arquivo.close();
 
   //=================================
-	std::ofstream arquivoSaida(nomeArquivo);
+	ofstream arquivoSaida(nomeArquivo);
 	if (!arquivoSaida.is_open()) {
-		std::cerr << "Erro ao escrever no arquivo" << std::endl;
+		cerr << "Erro ao escrever no arquivo" << endl;
 		return false;
 	}
-	for (const std::string& linha : linhas) {//reescreve o arquivo com as linhas atualizadas
+	for (const string& linha : linhas) {//reescreve o arquivo com as linhas atualizadas
 		arquivoSaida << linha << '\n';
 	}
 

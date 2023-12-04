@@ -16,7 +16,7 @@ public:
     void exibirInfo() const;
 
     void setCantorBanda(const std::string& cantorBanda) {
-        this->cantorBanda = cantorBanda;
+        this->cantorBanda = "\"" + cantorBanda + "\"";
     }
     std::string getCantorBanda() const {
         return cantorBanda;

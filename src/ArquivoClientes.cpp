@@ -1,25 +1,24 @@
 #include "..\include\ArquivoClientes.hpp"
 
 bool BancoClientes::Pesquisar(std::string cpf){
-    /*!
-    * Função que procura pelo cpf no arquivo de cadastro de clientes. Se encontra o cpf retorna 1.
-    */
+    //!<  Funcao que procura pelo cpf no arquivo de cadastro de clientes. Se encontra o cpf retorna 1.
+    
     std::map<std::string, std::string> configuration; 
     std::string line;
     std::fstream file("Clientes.txt",std::ios::in | std::ios::out| std::ios::app);
     
-    while(getline(file, line)){ //!< Itera sobre o arquivo de clientes.
+    while(getline(file, line)){ // Itera sobre o arquivo de clientes.
         std::string chaveCpf;
         std::string valorNome;
-        std::stringstream ss(line);       //!< Transforma a linha em um stream.
-        getline(ss, chaveCpf, ' ');  //!< Lê a linha ate chega em ' '.
-        ss >> std::ws;                    //!< Ignora espaços em branco.
-        getline(ss, valorNome);      //!< Lê o restante da linha.
+        std::stringstream ss(line);       // Transforma a linha em um stream.
+        getline(ss, chaveCpf, ' ');  //  Lê a linha ate chega em ' '.
+        ss >> std::ws;                    //  Ignora espaços em branco.
+        getline(ss, valorNome);      //  Lê o restante da linha.
         
         configuration[chaveCpf] = valorNome;
     }
     file.close();
-    if(configuration[cpf] == ""){ //!< Verifica se o cpf pedido se encontra no map com os cpf's e nomes.
+    if(configuration[cpf] == ""){ //  Verifica se o cpf pedido se encontra no map com os cpf's e nomes.
         return false;
     }
     else 
@@ -29,9 +28,7 @@ bool BancoClientes::Pesquisar(std::string cpf){
 }
 
 void BancoClientes::cadastrarCliente(std::string cpf, std::string nome){
-    /*!
-    * Função que preenche o arquivo de cadastro de clientes.
-    */
+    //!<  Funcao que preenche o arquivo de cadastro de clientes.
     time_t agora = time(0);
     tm* ltm = localtime(&agora);
     std::string dataCadastro = std::to_string(1900 + ltm->tm_year) + '-' + std::to_string(1 + ltm->tm_mon) + '-' + std::to_string(ltm->tm_mday);
@@ -62,10 +59,9 @@ void BancoClientes::cadastrarCliente(std::string cpf, std::string nome){
 }
 
 void BancoClientes::removerCliente(std::string cpf){
-    /*!
-    * Função que remove um cliente a partir do cpf no arquivo de cadastro de clientes.
-    */
-    std::ofstream temp("temp.txt"); //!< Arquivo temporario para auxiliar.
+    //!< Funcao que remove um cliente a partir do cpf no arquivo de cadastro de clientes.
+
+    std::ofstream temp("temp.txt"); // Arquivo temporario para auxiliar.
     std::string line;
     std::ifstream file("Clientes.txt");
 
@@ -94,7 +90,7 @@ void BancoClientes::removerCliente(std::string cpf){
         file.close();
         const char * p = "Clientes.txt";
         remove(p);
-        rename("temp.txt", p); //!< Descarta o arquivo antigo e subtitui pelo atualizado.
+        rename("temp.txt", p); //  Descarta o arquivo antigo e subtitui pelo atualizado.
     }
 
     
@@ -104,15 +100,14 @@ void BancoClientes::removerCliente(std::string cpf){
         file.close();
         const char * p = "Clientes.txt";
         remove(p);
-        rename("temp.txt", p); //!< Descarta o arquivo antigo e subtitui pelo atualizado.
+        rename("temp.txt", p); //  Descarta o arquivo antigo e subtitui pelo atualizado.
         throw std::invalid_argument("Cliente nao encontrado."); 
     }
 }
 
 void BancoClientes::imprimirRelatorio(char ordem){
-    /*!
-    * Função que imprimi o cpf e o nome de todos os clientes cadastrados. De acordo com o critério de ordenação informado pelo usuário.
-    */
+    //!<  Funcao que imprime o cpf e o nome de todos os clientes cadastrados. De acordo com o criterio de ordenacao informado pelo usuario.
+
     if(ordem != 'C' && ordem != 'N')
         throw std::invalid_argument ("Entrada Invalida.");
 
@@ -141,12 +136,12 @@ void BancoClientes::imprimirRelatorio(char ordem){
         }
     }
 
-    if(ordem == 'C'){  //!< Ordena pelo cpf.
+    if(ordem == 'C'){  //  Ordena pelo cpf.
     for (it = historico.begin(); it != historico.end(); it++) 
         std::cout << it->first << " " << it->second << std::endl;
 
     }
-    else if (ordem == 'N'){ //!< Ordena pelo nome.
+    else if (ordem == 'N'){ //  Ordena pelo nome.
         for (it = historico.begin(); it != historico.end(); it++)  
             aux.insert(std::pair<std::string, long long int>(it->second,it->first));
 
@@ -160,9 +155,8 @@ void BancoClientes::imprimirRelatorio(char ordem){
 }
 
 Cliente* BancoClientes::getCliente(std::string cpf){
-    /*!
-    * Função que retorna o endereço de memória de um cliente a partir do seu cpf.
-    */
+    //!<  Funcao que retorna o endereco de memoria de um cliente a partir do seu cpf.
+
     if(this->Pesquisar(cpf)){
         return this->banco[cpf];
     }
@@ -173,45 +167,15 @@ Cliente* BancoClientes::getCliente(std::string cpf){
 
 
 bool BancoClientes::isValidCPF(std::string cpf) {
-    /*!
-    * Função que verifica se o cpf apresenta um formato válido.
-    */
+    //!<  Funcao que verifica se o cpf apresenta um formato valido.
+    
 
     unsigned length = 0;
-    // int ver1 = 0, ver2 = 0;
-    // char aux;
-
     length = cpf.length();
 
     if(length == 11)
         return true;
     return false;
 
-    // if (length != 11)
-    //     return false;
-
-    // for (int j = 0; j < 9; j++) {
-    //     aux = cpf[j];
-    //     ver1 += atoi(&aux) * (j + 1);
-    // }
-
-    // ver1 %= 11;
-
-
-    // for (int j = 0; j < 9; j++) {
-    //     aux = cpf[j];
-    //     ver2 += atoi(&aux) * j;
-    // }
-
-    // ver2 += ver1 * 9;
-    // ver2 %= 11;
-
-    // aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(length) - 2];
-    // if (atoi(&aux) == ver1) {
-    //     aux = cpf[static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(length) - 1];
-    //     if (atoi(&aux) == ver2)
-    //         return true;
-    // }
-    // return false;
 
 }

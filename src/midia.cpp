@@ -13,3 +13,4 @@ void Midia::exibirInfo() const {
     std::cout << "Quantidade Total: " << quantidadeTotal << std::endl;
 }
 
+

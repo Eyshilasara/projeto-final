@@ -19,5 +19,5 @@ ${BUILD_DIR}/main.o:  ${SRC_DIR}/main.cpp
 # Rule for cleaning files generated during compilation.
 
 clean:
-	$(RM) /Q /F $(BUILD_DIR)/main.o
+	$(RM) /Q /F $(BUILD_DIR)/*.o
 	$(RM) /Q /F $(TARGET).exe

@@ -5,12 +5,12 @@
 
 using namespace std;
 
-void novoArquivo(string nomeArquivo, vector<vector<string>> linhas);
+bool novoArquivo(string nomeArquivo, vector<vector<string>> linhas);
 string getCurrentDateAsString();
 vector<string> converterLinhaParaVetor(string);
 vector<vector<string>> PegarLinhasDoArquivo(string, bool);
 void relatorio(int, string);
-void atualizarDataDeLocacao(const string&, vector<string>, string, vector<bool>);
+bool atualizarDataDeLocacao(const string&, vector<string>, string, vector<bool>);
 string verificarTipoMidia(string);
 bool estoque(const string&, string, int);
 vector<vector<string>> filtro(string fileName, int columnNumber, string arg, bool isSingleRow);

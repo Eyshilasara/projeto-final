@@ -35,5 +35,4 @@ void escreverNoArquivo(Midia &midia, const std::string &nomeArquivo, DVD &dvd, F
             << fitaVideo.getRebobinado() << std::endl;
 
     arquivo.close();
-    std::cout << "Mídia cadastrada com sucesso!" << std::endl;
 }

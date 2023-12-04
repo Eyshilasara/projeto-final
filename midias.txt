@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 1234 4 10 dvd  lancamento harry  10 0 0 0 48
 1233 1 5 dvd  lancamento harrypotter  10 0 0 0 48
 1222 20 30 fita  lancamento harry  10 0 0 0 48
 1212 2 3 dvd  estoque knye  0 0 0 0 0
+=======
+1234 5 10 fita 0 lancamento "harry" "potter" 10 0 0 0 0
+1235 4 7 fita 0 lancamento "oi" "terror" 10 0 0 0 0
+1221 5 10 fita 0 0 "harry_potter" "fantasia" 0 0 0 0 0
+1222 4 7 fita 0 0 "star_wars" "ficcao" 0 0 0 0 0
+>>>>>>> 4f4f542beb7f53f0496de3c889ae1fa6ab228617

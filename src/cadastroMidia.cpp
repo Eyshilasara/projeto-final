@@ -114,14 +114,15 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
     }
 
     std::cout << "Qual o titulo da midia? "
-                  << "(Sem caracteres especiais. Lembre-se de usar sempre letras minusculas!)" << std::endl;
-        std::cin >> titulo;
+                  << "(Sem caracteres especiais (use _ no lugar de espaco). Lembre-se de usar sempre letras minusculas!)" << std::endl;
+        
+        std::cin>>titulo;
 
         // Verificar se o titulo contém apenas caracteres alfanumericos e minusculas
         while (std::cin)
         {
             if (std::all_of(titulo.begin(), titulo.end(), [](char c)
-                            { return std::islower(c) || std::isalnum(c); }))
+                            { return std::islower(c) || c == '_';}))
             {
 
                 midia.setTitulo(titulo);
@@ -129,7 +130,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             }
             else
             {
-                std::cout << "ERRO: Título inválido. Por favor, siga as instruções." << std::endl;
+                std::cout << "ERRO: Titulo invalido. Por favor, siga asco." << std::endl;
             }
         }
 
@@ -291,8 +292,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
 
 void removerMidia(int codigo)
 {
-    std::cout << "Digite o codigo da midia que deseja excluir."
-              << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
+    
     std::ifstream inputFile("midias.txt");
     std::ofstream outputFile("temp.txt");
 

@@ -43,7 +43,7 @@ int main(){
         std::cout << "|                                                                           |   " << std::endl;
         std::cout << "|                Digite um comando para iniciar o sistema                   |   " << std::endl;
         std::cout << "|                          Lista de comandos:                               |   " << std::endl;
-        std::cout << "|  LA ---------------------------------- Ler arquivo de cadastro de midias  |   " << std::endl;
+        std::cout << "|  LA ------------------------------- Listar arquivo de cadastro de midias  |   " << std::endl;
         std::cout << "|  CF ---------------------------------------------------- Cadastrar midia  |   " << std::endl;
         std::cout << "|  RF ------------------------------------------------------ Remover midia  |   " << std::endl;
         std::cout << "|  LF ----------------------- Listar filmes ordenados por titulo ou codigo  |   " << std::endl;
@@ -119,6 +119,9 @@ int main(){
         
         
         else if(entrada == "RF"){
+            std::cout << "Digite o codigo da midia que deseja excluir."
+              << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
+            std::cin>>codigo;
             removerMidia(codigo);
         }
         
@@ -271,17 +274,21 @@ int main(){
         }
 
         else {
-            std::cout << "Entre com algum dos comando:" << std::endl;
-            std::cout << "LA <Nome do Arquivo> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Ler arquivo de cadastro de filme" << std::endl;
-            std::cout << "CF <Tipo: F|D> <quantidade> <codigo> <titulo> <categoria no caso de DVD> - -- Cadastrar filme" << std::endl;
-            std::cout << "RF <codigo> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Remover filme" << std::endl;
-            std::cout << "LF [C|T] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Filmes ordenados por Código ou Título:" << std::endl;
-            std::cout << "CC <CPF> <Nome> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - Cadastrar Cliente" << std::endl;
-            std::cout << "RC <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Remover Cliente" << std::endl;
-            std::cout << "LC [C|N] -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Listar Clientes ordenados por CPF ou Nome:" << std::endl;
-            std::cout << "AL <CPF> <Codigo1> <Codigo N> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Aluguel Filme" << std::endl;
-            std::cout << "DV <CPF> -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Devolução Filme" << std::endl;
-            std::cout << "FS -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Finalizar Sistema" << std::endl;
+        std::cout << "____________________________________________________________________________    " << std::endl;
+        std::cout << "|                                                                           |   " << std::endl;
+        std::cout << "|                Digite um comando para iniciar o sistema                   |   " << std::endl;
+        std::cout << "|                          Lista de comandos:                               |   " << std::endl;
+        std::cout << "|  LA ------------------------------- Listar arquivo de cadastro de midias  |   " << std::endl;
+        std::cout << "|  CF ---------------------------------------------------- Cadastrar midia  |   " << std::endl;
+        std::cout << "|  RF ------------------------------------------------------ Remover midia  |   " << std::endl;
+        std::cout << "|  LF ----------------------- Listar filmes ordenados por titulo ou codigo  |   " << std::endl;
+        std::cout << "|  CC ----------------------------------------------- Cadastrar cliente(s)  |   " << std::endl;
+        std::cout << "|  RC ------------------------------------------------- Remover cliente(s)  |   " << std::endl;
+        std::cout << "|  LC -------------------------- Listar Clientes ordenados por CPF ou Nome  |   " << std::endl;
+        std::cout << "|  AL ---------------------------------------------------- Alugar midia(s)  |   " << std::endl;
+        std::cout << "|  DV ------------------------------------------- Devolver midias alugadas  |   " << std::endl;
+        std::cout << "|  FS -------------------------------------------------- Finalizar sistema  |   " << std::endl;
+        std::cout << "|___________________________________________________________________________|   " << std::endl;
         }
     }while(std::cin);
 

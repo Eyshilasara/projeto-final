@@ -73,6 +73,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             std::cout << "ERRO: Tipo de midia invalido. Por favor, insira novamente." << std::endl;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         }
     }
     midia.setTipo(tipo);
@@ -113,14 +114,15 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
         dvd.setCategoria(categoria);
     }
 
-    std::cout << "Qual o titulo da midia? "
-                  << "(Sem caracteres especiais (use _ no lugar de espaco). Lembre-se de usar sempre letras minusculas!)" << std::endl;
-        
-        std::cin>>titulo;
+    
+    
 
         // Verificar se o titulo contém apenas caracteres alfanumericos e minusculas
         while (std::cin)
         {
+            std::cout << "Qual o titulo da midia? "
+                  << "(Sem caracteres especiais (use _ no lugar de espaco). Lembre-se de usar sempre letras minusculas!)" << std::endl;
+            std::cin>>titulo;
             if (std::all_of(titulo.begin(), titulo.end(), [](char c)
                             { return std::islower(c) || c == '_';}))
             {
@@ -130,14 +132,19 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             }
             else
             {
-                std::cout << "ERRO: Titulo invalido. Por favor, siga asco." << std::endl;
+                std::cout << "ERRO: Titulo invalido. Por favor, siga as condicoes." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
+                
             }
         }
 
-        std::cout << "Qual o genero da midia? "
-                  << "Lembre-se de usar sempre letras minusculas e sem caracteres especiais!)" << std::endl;
+        
         while (true)
         {
+            std::cout << "Qual o genero da midia? "
+                  << "Lembre-se de usar sempre letras minusculas e sem caracteres especiais!)" << std::endl;
             std::cin >> genero;
             if (std::all_of(genero.begin(), genero.end(), [](char c)
                             { return std::islower(c) || std::isalnum(c); }))
@@ -148,6 +155,9 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             else
             {
                 std::cout << "ERRO: Genero invalido. Por favor, siga as instrucoes." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                continue;
             }
         }
 

@@ -1,3 +1,4 @@
 1234 5 10 fita 0 lancamento "harry" "potter" 10 0 0 0 0
 1235 4 7 fita 0 lancamento "oi" "terror" 10 0 0 0 0
 1221 5 10 fita 0 0 "harry_potter" "fantasia" 0 0 0 0 0
+1222 4 7 fita 0 0 "star_wars" "ficcao" 0 0 0 0 0

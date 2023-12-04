@@ -1,0 +1,113 @@
+[
+  {
+    "name": "Midia",
+    "superclasses": "",
+    "subclasses": "DVD e fita de video",
+    "type": 1,
+    "responsibilities": [
+      "Tipo",
+      "Titulo",
+      "Código",
+      "Gênero",
+      "Quantidade disponível",
+      "Quantidade total",
+      ""
+    ],
+    "collaborators": [
+      "Cliente",
+      ""
+    ]
+  },
+  {
+    "name": "Fita de video",
+    "superclasses": "Midia",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Rebobinada"
+    ],
+    "collaborators": [
+      "Midia"
+    ]
+  },
+  {
+    "name": "DVD",
+    "superclasses": "Mídia ",
+    "subclasses": "Filme, Jogo e Disco",
+    "type": 1,
+    "responsibilities": [
+      "Categoria",
+      "Grupo"
+    ],
+    "collaborators": [
+      "Midia"
+    ]
+  },
+  {
+    "name": "Filme",
+    "superclasses": "DVD",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Nota da critica"
+    ],
+    "collaborators": [
+      "DVD",
+      "Mídia "
+    ]
+  },
+  {
+    "name": "Jogo",
+    "superclasses": "DVD",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Plataforma"
+    ],
+    "collaborators": [
+      "DVD",
+      "Mídia"
+    ]
+  },
+  {
+    "name": "Disco",
+    "superclasses": "DVD",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Cantor/Banda",
+      "Numero de musicas ",
+      ""
+    ],
+    "collaborators": [
+      "DVD",
+      "Mídia"
+    ]
+  },
+  {
+    "name": "Cliente",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Nome",
+      "CPF",
+      "Dias corridos com a mídia"
+    ],
+    "collaborators": [
+      "Mídia"
+    ]
+  },
+  {
+    "name": "Banco de clientes",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Banco"
+    ],
+    "collaborators": [
+      "Cliente"
+    ]
+  }
+]

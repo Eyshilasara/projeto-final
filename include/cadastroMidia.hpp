@@ -19,7 +19,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
 
 void removerMidia(int codigo);
 
-void listarFilmes(std::vector<std::vector<std::string>>& midias, char entrada);
+void listarFilmes();
 
 void lerArquivo(std::string midiastxt);
 

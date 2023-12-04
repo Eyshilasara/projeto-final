@@ -11,6 +11,7 @@
 #include "dvd.hpp"
 #include "cadastroMidia.hpp"
 #include "..\include\escreverNoArquivo.hpp"
+#include "..\include\Gerenciador_de_arquivos.hpp"
 
 
 
@@ -30,20 +31,34 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
     int numeroMusicas;
     bool rebobinado;
 
-    std::cout << "Qual o codigo da midia? "
-              << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
-    std::cin >> codigo;
-    while (std::cin.fail() || std::to_string(codigo).length() != 4)
-    {
-        std::cout << "ERRO: Codigo invalido. Por favor, insira novamente." << std::endl;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cin >> codigo;  // Leia dentro do loop para corrigir o problema
+    std::vector<std::vector<std::string>> codigoFiltrado;
+    while (true) {
+        std::cout << "Qual o codigo da midia? "
+                  << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
+
+        if (!(std::cin >> codigo) || std::to_string(codigo).length() != 4) {
+            std::cin.clear(); 
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            std::cout << "ERRO: Codigo invalido. Por favor, insira novamente." << std::endl;
+            continue; 
+        }
+
+        codigoFiltrado = filtro("midias.txt", 0, std::to_string(codigo), true);
+
+        
+        if (codigoFiltrado.size() != 0) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "ERRO: Codigo ja cadastrado. Por favor, insira novamente." << std::endl;
+            continue;
+        } else {
+           midia.setCodigo(codigo);
+            break;
+        }
     }
 
-    midia.setCodigo(codigo);
 
-    std::cout << "Qual o tipo da midia? (As opções são dvd ou fita. Lembre-se de usar sempre letras minusculas!)" << std::endl;
+    std::cout << "Qual o tipo da midia? (As opcoes sao dvd ou fita. Lembre-se de usar sempre letras minusculas!)" << std::endl;
 
     while (true)
     {
@@ -66,7 +81,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
     {
         while (true)
         {
-            std::cout << "Qual o grupo da midia? (As opções são filme, jogo ou disco. Lembre-se de usar sempre letras minúsculas!)" << std::endl;
+            std::cout << "Qual o grupo da midia? (As opcoes sao filme, jogo ou disco. Lembre-se de usar sempre letras minusculas!)" << std::endl;
             std::cin >> grupo;
 
             if (grupo == "filme" || grupo == "jogo" || grupo == "disco")
@@ -78,7 +93,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 std::cout << "ERRO: Grupo invalido. Por favor, insira novamente." << std::endl;
             }
         }
-        std::cout << "Qual a categoria da midia? (As opçoes sao lancamento, promocao ou estoque. Lembre-se de usar sempre letras minúsculas!)" << std::endl;
+        std::cout << "Qual a categoria da midia? (As opcoes sao lancamento, promocao ou estoque. Lembre-se de usar sempre letras minusculas!)" << std::endl;
         while (true)
         {
             std::cin >> categoria;
@@ -99,15 +114,16 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
     }
 
     std::cout << "Qual o titulo da midia? "
-                  << "(Sem caracteres especiais. Lembre-se de usar sempre letras minusculas e colocar o titulo entre aspas!)" << std::endl;
+                  << "(Sem caracteres especiais. Lembre-se de usar sempre letras minusculas!)" << std::endl;
         std::cin >> titulo;
 
-        // Verificar se o título contém apenas caracteres alfanuméricos e minúsculas
+        // Verificar se o titulo contém apenas caracteres alfanumericos e minusculas
         while (std::cin)
         {
             if (std::all_of(titulo.begin(), titulo.end(), [](char c)
                             { return std::islower(c) || std::isalnum(c); }))
             {
+
                 midia.setTitulo(titulo);
                 break;
             }
@@ -121,6 +137,7 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                   << "Lembre-se de usar sempre letras minusculas e sem caracteres especiais!)" << std::endl;
         while (true)
         {
+            std::cin >> genero;
             if (std::all_of(genero.begin(), genero.end(), [](char c)
                             { return std::islower(c) || std::isalnum(c); }))
             {
@@ -135,24 +152,22 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
 
         if (grupo == "filme")
         {
-            std::cout << "Qual a nota de critica? (Use apenas numeros inteiros)" << std::endl;
-            std::cin >> notaCritica;
             while (true)
             {
-                if (std::cin.fail())
-                {
-                    std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
-                    // Limpar o estado de erro e o buffer de entrada
+                std::cout << "Qual a nota de critica? (O valor minimo eh 0 e o maximo eh 10, use apenas numeros inteiros)" << std::endl;
+                std::cin >> notaCritica;
+                if (notaCritica < 0 || notaCritica > 10){
+                    std::cout << "ERRO: Nota invalida. Por favor, insira novamente." << std::endl;
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    continue;
                 }
-                else
-                {
+                else if (notaCritica>=0 && notaCritica<=10){
+                    filme.setNotaCritica(notaCritica);
                     break;
                 }
             }
-
-            filme.setNotaCritica(notaCritica);
+            
         }
         
         else if (grupo == "jogo")
@@ -202,7 +217,6 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 if (std::cin.fail())
                 {
                     std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
-                    // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
@@ -226,7 +240,6 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
                 else
                 {
                     std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
-                    // Limpar o estado de erro e o buffer de entrada
                     std::cin.clear();
                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 }
@@ -242,7 +255,6 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             if (std::cin.fail())
             {
                 std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
-                // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
@@ -262,7 +274,6 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
             if (std::cin.fail())
             {
                 std::cout << "ERRO: Entrada invalida. Por favor, insira novamente." << std::endl;
-                // Limpar o estado de erro e o buffer de entrada
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
@@ -273,13 +284,15 @@ void cadastrarMidia(Midia &midia, DVD &dvd, Disco &disco, Jogo &jogo, FitaVideo 
         }
         midia.setQuantidadeDisponivel(quantidadeDisponivel);
         escreverNoArquivo(midia,"midias.txt",dvd,filme,fitaVideo,disco,jogo);
-        std::cout << "Mídia cadastrada com sucesso!" << std::endl;
+        std::cout << "Midia cadastrada com sucesso!" << std::endl;
       
 }
 
 
 void removerMidia(int codigo)
 {
+    std::cout << "Digite o codigo da midia que deseja excluir."
+              << "O codigo deve conter exatamente 4 digitos. Lembre-se de usar apenas numeros inteiros!" << std::endl;
     std::ifstream inputFile("midias.txt");
     std::ofstream outputFile("temp.txt");
 
@@ -299,7 +312,6 @@ void removerMidia(int codigo)
 
             outputFile << line << std::endl;
         }
-
         inputFile.close();
         outputFile.close();
 
@@ -311,7 +323,7 @@ void removerMidia(int codigo)
         }
         else
         {
-            std::cout << "Linha nao encontrada." << std::endl;
+            std::cout << "ERRO: codigo nao encontrado." << std::endl;
         }
     }
     else
@@ -319,40 +331,51 @@ void removerMidia(int codigo)
         std::cout << "Erro ao abrir os arquivos." << std::endl;
     }
 }
-void listarFilmes(std::vector<std::vector<std::string>> & midias, char entrada)
+void listarFilmes()
+{
+    std::vector<std::vector<std::string>> midias = PegarLinhasDoArquivo("midias.txt", true);
+    char entrada;
+    std::cout << "Como deseja ordenar as midias? (As opcoes sao: c para codigo ou t para titulo. Lembre-se de usar sempre letras minusculas!)" << std::endl;     
+    std::cin >> entrada;
+
+    do
+    {
+        if (entrada == 'c')
         {
-            std::vector<std::vector<std::string>> midiasOrdenadas;
-            std::vector<std::string> midia;
-            std::cout << "Como deseja ordenar as midias? (As opções são c para código ou t para título. Lembre-se de usar sempre letras minúsculas!)" << std::endl;     
-            std::cin >> entrada;
-
-            while (entrada == 'c' || entrada == 't')
+            // Ordenar por código de forma crescente
+            std::sort(midias.begin(), midias.end(), [](const std::vector<std::string> &a, const std::vector<std::string> &b)
+                    { return a[0] < b[0]; });
+            for (auto &midia : midias)
             {
-                if (entrada == 'c')
-                {
-                    // Ordenar por código de forma crescente
-                    std::sort(midias.begin(), midias.end(), [](const std::vector<std::string> &a, const std::vector<std::string> &b)
-                            { return a[0] < b[0]; });
-                }
-                else if (entrada == 't')
-                {
-                    // Ordenar em ordem alfabética pelo título
-                    std::sort(midias.begin(), midias.end(), [](const std::vector<std::string> &a, const std::vector<std::string> &b)
-                            { return a[6] < b[6]; });
-                }
-
-                else
-                {
-                    std::cout << "ERRO: Opção inválida. Por favor, insira novamente." << std::endl;
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                }
+                std::cout << "Codigo: " << midia[0] << " | " <<"Quantidade disponivel: "  << midia[1] << " | " << "Quantidade total: " << midia[2] << " | " << "Tipo: " << midia[3] << " | " << "Grupo: " << midia[4] << " | " << "Categoria: " << midia[5] << " | " << "Titulo: " << midia[6] << " | " << "Genero: " << midia[7] << " | " << "Nota de critica: " << midia[8] << " | " << "Numero de musicas: " << midia[9] << " | " << "Cantor/Banda: " << midia[10] << " | " << "Plataforma: " << midia[11] << " | " << "Rebobinado: " << midia[12] << std::endl;
             }
+          break;
+        }
+        else if (entrada == 't')
+        {
+            // Ordenar em ordem alfabética pelo título
+            std::sort(midias.begin(), midias.end(), [](const std::vector<std::string> &a, const std::vector<std::string> &b)
+                    { return a[6] < b[6]; });
+            for (auto &midia : midias)
+            {
+                std::cout << "Codigo: " << midia[0] << " | " <<"Quantidade disponivel: "  << midia[1] << " | " << "Quantidade total: " << midia[2] << " | " << "Tipo: " << midia[3] << " | " << "Grupo: " << midia[4] << " | " << "Categoria: " << midia[5] << " | " << "Titulo: " << midia[6] << " | " << "Genero: " << midia[7] << " | " << "Nota de critica: " << midia[8] << " | " << "Numero de musicas: " << midia[9] << " | " << "Cantor/Banda: " << midia[10] << " | " << "Plataforma: " << midia[11] << " | " << "Rebobinado: " << midia[12] << std::endl;
+            }
+          break;
         }
 
-        void lerArquivo(std::string midiastxt)
+        else
         {
-            std::ifstream arquivo;
+            std::cout << "ERRO: Opção inválida. Por favor, insira novamente." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+    }while (entrada == 'c' || entrada=='t');
+}
+
+void lerArquivo(std::string midiastxt)
+{
+    std::ifstream arquivo;
             arquivo.open(midiastxt);
 
             if (arquivo.fail())

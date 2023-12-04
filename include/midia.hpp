@@ -28,7 +28,7 @@ public:
     }
 
     void setTitulo(const std::string& titulo) {
-        this->titulo = titulo;
+        this->titulo = "\"" + titulo + "\"";
     }   
     std::string getTitulo() const {
         return titulo;
@@ -42,7 +42,7 @@ public:
     }
 
     void setGenero(const std::string& genero) {
-        this->genero = genero;
+        this->genero = "\"" + genero + "\"";
     }
     std::string getGenero() const {
         return genero;
